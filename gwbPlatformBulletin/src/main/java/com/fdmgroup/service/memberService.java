@@ -1,5 +1,8 @@
 package com.fdmgroup.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 @Service
 public class memberService {
 	
@@ -19,6 +22,7 @@ public class memberService {
     }
 
     public Member updateMember(int memberId, Member memberDetails) {
+    	
         Member member = memberRepository.findById(memberId).orElse(null);
         if (member != null) {
             member.setFirstName(memberDetails.getFirstName());

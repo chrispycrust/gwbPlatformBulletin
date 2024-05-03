@@ -1,4 +1,4 @@
-package com.fdmgroup.model;
+package com.fdmgroup.gwbPlatformBulletin.model;
 
 /**
  * 

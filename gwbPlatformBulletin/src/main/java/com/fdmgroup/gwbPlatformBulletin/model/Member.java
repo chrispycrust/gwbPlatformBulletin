@@ -23,7 +23,7 @@ import jakarta.persistence.OneToMany;
  */
 
 @Entity
-//@Component
+@Component
 public class Member {
 	
 	@Id

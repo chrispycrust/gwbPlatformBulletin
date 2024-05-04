@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fdmgroup.gwbPlatformBulletin.exceptions.ConflictException;
 import com.fdmgroup.gwbPlatformBulletin.model.Member;
 import com.fdmgroup.gwbPlatformBulletin.service.MemberService;
 
@@ -33,19 +34,25 @@ public class MemberController {
         return memberService.getMemberById(memberId);
     }
     
-    @PostMapping("/register")
-    public void createMember(@RequestBody Member member) {
-        memberService.createMember(member);
+    @GetMapping("/{search}")
+    public List<Member> getMemberByName(@PathVariable(value = "search") String search) {
+        return memberService.findBySearch(search);
     }
     
-    @PutMapping("/{id}")
-    public Optional<Member> updateMember(@PathVariable(value = "id") Integer memberId) {
-    	return memberService.updateMember(memberId);
+    
+    @PostMapping("/register")
+    public void registerMember(@RequestBody Member member) throws ConflictException {
+        memberService.registerMember(member);
+    }
+    
+    @PutMapping() // not sure what endpoint should be, you'd update member on the member profile page?
+    public void updateMember(Member member) {
+    	memberService.updateMember(member);
     }
         
     @DeleteMapping("/{id}")
-    public void deleteMember(@PathVariable(value = "id") Integer memberId) {
-    	memberService.deleteMember(memberId);
+    public void deleteMemberById(@PathVariable(value = "id") Integer memberId) {
+    	memberService.deleteById(memberId);
     }
 
 }

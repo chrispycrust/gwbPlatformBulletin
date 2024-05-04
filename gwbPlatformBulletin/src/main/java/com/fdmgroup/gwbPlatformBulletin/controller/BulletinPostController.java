@@ -32,6 +32,16 @@ public class BulletinPostController {
     public Optional<BulletinPost> getPostById(@PathVariable(value = "id") Integer postId) {
         return bulletinPostService.getPostById(postId);
     }
+ 
+    
+   // to work on: retrieve post by member name
+    
+    @GetMapping("/{memberName}")
+    public Optional<List<BulletinPost>> getPostById(@PathVariable(value = "id") String memberName) {
+    	
+        return bulletinPostService.getPostByMemberName(postId);
+        
+    }
     
     @PostMapping
     public BulletinPost createPost(@RequestBody BulletinPost post) {

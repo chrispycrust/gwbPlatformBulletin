@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -24,7 +25,7 @@ public class BulletinPost {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Autowired
+//	@Autowired
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "member_id", nullable = false)
@@ -51,36 +52,20 @@ public class BulletinPost {
 
 	}
 	
-//	@JsonInclude(JsonInclude.Include.NON_NULL)
+	@JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAuthorHonorific() {
         return author != null ? author.getHonorific() : null;
     }
 	
-//	@JsonInclude(JsonInclude.Include.NON_NULL)
+	@JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAuthorFirstName() {
         return author != null ? author.getFirstName() : null;
     }
 
-//    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAuthorLastName() {
         return author != null ? author.getLastName() : null;
     }
-    
-//    @JsonProperty("author")
-//    public Map<String, String> getAuthorDetails() {
-//    	
-//        Map<String, String> authorDetails = new HashMap<>();
-//
-//        authorDetails.put("honorific", getAuthorHonorific());
-//        
-//        if ( getAuthorLastName().length() != 0 ) {
-//        	authorDetails.put("lastName", getAuthorLastName());
-//        } else {
-//        	authorDetails.put("firstName", getAuthorFirstName());
-//        }
-//        
-//        return authorDetails;
-//    }
     
     @JsonProperty("author")
     public List<String> getAuthorDetails() {

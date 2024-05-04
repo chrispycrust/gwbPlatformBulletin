@@ -23,7 +23,7 @@ import jakarta.persistence.OneToMany;
  */
 
 @Entity
-@Component
+//@Component
 public class Member {
 	
 	@Id
@@ -79,6 +79,25 @@ public class Member {
 	public String getLastName() {
 		return lastName;
 	}
+	
+	public String getFullName() {
+
+		StringBuilder fullName = new StringBuilder();
+
+	    if (honorific != null && !honorific.isEmpty()) {
+	        fullName.append(honorific).append(" ");
+	    }
+
+	    if (firstName != null && !firstName.isEmpty()) {
+	        fullName.append(firstName).append(" ");
+	    }
+
+	    if (lastName != null && !lastName.isEmpty()) {
+	        fullName.append(lastName);
+	    }
+
+	    return fullName.toString().trim();
+	}
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
@@ -89,6 +108,5 @@ public class Member {
 		return "Member [id=" + id + ", honorific=" + honorific + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", postHistory=" + postHistory + "]";
 	}
-
 
 }

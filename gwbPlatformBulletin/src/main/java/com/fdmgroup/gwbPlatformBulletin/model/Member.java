@@ -34,7 +34,7 @@ public class Member {
 	private String firstName;
 	private String lastName;
 	
-	@JsonIgnore // means don't return as part of the return
+	@JsonIgnore // prevents circular return - Alice's issue
 	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
 	List<BulletinPost> postHistory = new ArrayList<>();
 	
@@ -85,15 +85,15 @@ public class Member {
 		StringBuilder fullName = new StringBuilder();
 
 	    if (honorific != null && !honorific.isEmpty()) {
-	        fullName.append(honorific).append(" ");
+	        fullName.append(honorific.trim()).append(" ");
 	    }
 
 	    if (firstName != null && !firstName.isEmpty()) {
-	        fullName.append(firstName).append(" ");
+	        fullName.append(firstName.trim()).append(" ");
 	    }
 
 	    if (lastName != null && !lastName.isEmpty()) {
-	        fullName.append(lastName);
+	        fullName.append(lastName.trim());
 	    }
 
 	    return fullName.toString().trim();

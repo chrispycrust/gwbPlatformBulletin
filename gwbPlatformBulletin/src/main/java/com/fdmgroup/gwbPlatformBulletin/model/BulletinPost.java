@@ -113,19 +113,10 @@ public class BulletinPost {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
-	public LocalDateTime getDatePublished() {
-		return datePublished;
-	}
-	
-	public void setDatePublished(LocalDateTime datePublished) {
-		this.datePublished = datePublished;
-	}
 
 	@Override
 	public String toString() {
-		return "BulletinPost [id=" + id + ", author=" + author + ", title=" + title + ", content=" + content
-				+ ", datePublished=" + datePublished + "]";
+		return "BulletinPost [id=" + id + ", author=" + author + ", title=" + title + ", content=" + content + "]";
 	}
 
 

@@ -17,6 +17,13 @@ public class BulletinPostService {
 	@Autowired
     private BulletinPostRepository bulletinRepository;
 	
+	/**
+	 * Date Published will reflect when post has been submitted and saved to database, not post instantiation
+	 * 
+	 * @param post
+	 * @return
+	 * @throws ValidationException
+	 */
 	public BulletinPost createPost(BulletinPost post) throws ValidationException {
 		
 		try { 

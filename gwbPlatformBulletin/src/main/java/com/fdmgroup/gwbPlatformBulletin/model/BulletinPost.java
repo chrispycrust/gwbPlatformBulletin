@@ -55,13 +55,6 @@ public class BulletinPost {
 	@Column(columnDefinition = "TEXT", nullable = false)
 	private String content;
 	
-	/**
-	 * sets the datePublished field to the current date and time when the object is instantiated
-	 * before the constructor's body is executed
-	 */
-	private LocalDateTime datePublished = LocalDateTime.now();
-	// TODO account for different time zones in future
-
 	public BulletinPost() {
 	}
 	

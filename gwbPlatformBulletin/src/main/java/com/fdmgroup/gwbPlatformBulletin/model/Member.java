@@ -23,14 +23,14 @@ import jakarta.persistence.OneToMany;
  */
 
 @Entity
-@Component
+//@Component not sure if necessary
 public class Member {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String honorific; // could be an enum? Queen, Princess, Lady, Mrs, Miss - keeping it String for now and making sure it works
+	private String honorific; // could be an enum? Queen, Princess, Lady, Mrs, Miss
 	private String firstName;
 	private String lastName;
 	

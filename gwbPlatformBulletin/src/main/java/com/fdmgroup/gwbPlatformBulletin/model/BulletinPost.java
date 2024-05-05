@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -17,6 +17,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class BulletinPost {
@@ -31,8 +32,10 @@ public class BulletinPost {
 	@JoinColumn(name = "member_id", nullable = false)
 	private Member author;
 	
+	@NotBlank(message = "Title cannot be empty")
 	private String title;
 	
+	@NotBlank(message = "Content cannot be empty")
 	@Column(columnDefinition = "TEXT")
 	private String content;
 	

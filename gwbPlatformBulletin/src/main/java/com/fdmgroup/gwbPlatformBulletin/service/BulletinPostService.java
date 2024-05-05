@@ -7,67 +7,98 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fdmgroup.gwbPlatformBulletin.dal.BulletinPostRepository;
+import com.fdmgroup.gwbPlatformBulletin.exceptions.ValidationException;
 import com.fdmgroup.gwbPlatformBulletin.model.BulletinPost;
 
 @Service
 public class BulletinPostService {
 	
 	@Autowired
-    private BulletinPostRepository bulletinRepo;
+    private BulletinPostRepository bulletinRepository;
+	
+	public BulletinPost createPost(BulletinPost post) throws ValidationException {
+		
+		try { 
+			validatePost(post);
+			return bulletinRepository.save(post);
+			
+		} catch (ValidationException ve) {
+			
+			throw ve;
+			
+		} catch (Exception e) {
+			throw new RuntimeException("Error saving bulletin post", e);
+			
+        }
+		
+    }
 
-    public List<BulletinPost> getAllPosts() {
-        return bulletinRepo.findAll();
+    private void validatePost(BulletinPost post) throws ValidationException {
+    	
+    	try {
+            if (post.getTitle() == null || post.getTitle().trim().isEmpty()) {
+                throw new ValidationException("Title cannot be empty");
+            }
+        } catch (Exception e) {
+            throw new ValidationException("Error processing title: " + e.getMessage());
+            
+        }
+
+        try {
+            if (post.getContent() == null || post.getContent().trim().isEmpty()) {
+                throw new ValidationException("Content cannot be empty");
+            }
+        } catch (Exception e) {
+            throw new ValidationException("Error processing content: " + e.getMessage());
+            
+        }
+    }
+	
+	public List<BulletinPost> getAllPosts() {
+        return bulletinRepository.findAll();
     }
 
     public Optional<BulletinPost> getPostById(int postId) {
-        return Optional.of(bulletinRepo.findById(postId).orElse(null));
+        return Optional.of(bulletinRepository.findById(postId).orElse(null));
     }
     
-    // get post by author name
+    public Optional<List<BulletinPost>> getPostByMemberName(String memberName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
-    // get post by author id
+    public Optional<List<BulletinPost>> getPostByMemberId(Integer memberId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
     // get post by honorific
 
-    public BulletinPost createPost(BulletinPost post) {
-        return bulletinRepo.save(post);
+    public void updatePost(BulletinPost post) {
+    	bulletinRepository.save(post);
+
     }
 
-    public BulletinPost updatePost(int postId, BulletinPost postDetails) {
+    public void deleteById(Integer postId) {
     	
-    	BulletinPost post = bulletinRepo.findById(postId).orElse(null);
-        
-        if (post != null) {
-        	
-            post.setTitle(postDetails.getTitle());
-            post.setContent(postDetails.getContent());
-            return bulletinRepo.save(post);
-            
-        }
-        
-        return post;
-    }
-
-    public boolean deletePost(int postId) {
+    	bulletinRepository.deleteById(postId);
     	
-        Optional<BulletinPost> post = bulletinRepo.findById(postId);
-        
-        if (post.isPresent()) {
-        	
-        	bulletinRepo.delete(post.get());
-            return true;
-            
-        }
-        
-        return false;
+    	if (bulletinRepository.existsById(postId)) {
+			throw new RuntimeException("Delete failed. Post with ID " + postId + " could not be deleted.");
+			
+		} else {
+			System.out.println("Post with ID " + postId + " was deleted.");
+			
+		}
     }
 
 	public void saveAll(List<BulletinPost> bulletinBoard) {
 		
 		for ( BulletinPost post : bulletinBoard ) {
-			bulletinRepo.save(post);
+			bulletinRepository.save(post);
 		}
-		
 	}
 
+	
+	
 }

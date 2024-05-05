@@ -1,9 +1,9 @@
 package com.fdmgroup.gwbPlatformBulletin.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.fdmgroup.gwbPlatformBulletin.exceptions.ConflictException;
 import com.fdmgroup.gwbPlatformBulletin.model.Member;
 import com.fdmgroup.gwbPlatformBulletin.service.MemberService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/members")
@@ -23,30 +26,31 @@ public class MemberController {
 	
 	@Autowired
     private MemberService memberService;
+	
+	@PostMapping("/register")
+    public void registerMember(@Valid @RequestBody Member member) throws ConflictException {
+        memberService.registerMember(member);
+    }
     
     @GetMapping
     public List<Member> getAllMembers() {
         return memberService.getAllMembers();
     }
     
-    @GetMapping("/{id}") // members/{id}
-    public Optional<Member> getMemberById(@PathVariable(value = "id") Integer memberId) {
-        return memberService.getMemberById(memberId);
+    @GetMapping("/{id}")
+    public Member getMemberById(@PathVariable(value = "id") Integer memberId) {
+        return memberService.getMemberById(memberId)
+        		.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found with ID" + memberId));
     }
     
-    @GetMapping("/{search}")
-    public List<Member> getMemberByName(@PathVariable(value = "search") String search) {
-        return memberService.findBySearch(search);
+    @GetMapping("/search/{searchTerm}")
+    public List<Member> getMemberBySearch(@PathVariable(value = "searchTerm") String searchTerm) {
+        return memberService.findBySearch(searchTerm);
     }
-    
-    
-    @PostMapping("/register")
-    public void registerMember(@RequestBody Member member) throws ConflictException {
-        memberService.registerMember(member);
-    }
-    
-    @PutMapping() // not sure what endpoint should be, you'd update member on the member profile page?
-    public void updateMember(Member member) {
+
+    @PutMapping("/{id}")
+    public void updateMember(@PathVariable Integer id, @Valid @RequestBody Member member) {
+    	member.setId(id); // matches the id specified at the endpoint, ensures we're updating the right entity
     	memberService.updateMember(member);
     }
         

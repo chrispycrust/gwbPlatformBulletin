@@ -26,68 +26,63 @@ public class BulletinPost {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-//	@Autowired
+	/**
+	 *  @JsonIgnore
+	 *  Avoids serialising complete Member entity when BulletinPost objects are sent to the frontend
+	 *  Avoids unnecessary data exposure and to minimise the payload
+	 *  @ManyToOne
+	 *  There can be many posts to an author
+	 */
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "member_id", nullable = false)
 	private Member author;
 	
-	@NotBlank(message = "Title cannot be empty")
+	/**
+	 * @NotBlank 
+	 * ensures a field is not null, empty, or just whitespace
+	 * Immediately returns message to the application user
+	 */
+	@NotBlank(message = "Title cannot be blank")
+	@Column(nullable = false)
 	private String title;
 	
-	@NotBlank(message = "Content cannot be empty")
-	@Column(columnDefinition = "TEXT")
+	/**
+	 * Column definition set tO TEXT allows for longer information exceeding VARCHAR(255) in SQL database
+	 */
+	@NotBlank(message = "Content cannot be blank")
+	@Column(columnDefinition = "TEXT", nullable = false)
 	private String content;
 	
 	private LocalDateTime datePublished;
 
 	public BulletinPost() {
-		super();
 	}
 	
 	public BulletinPost(Member author, String title, String content) {
 		
-		super();
 		this.author = author;
 		this.title = title;
 		this.content = content;
-		this.datePublished = LocalDateTime.now();
+		this.datePublished = LocalDateTime.now(); 
+		// TODO account for different time zones in future
 
 	}
 	
-	@JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getAuthorHonorific() {
-        return author != null ? author.getHonorific() : null;
-    }
-	
-	@JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getAuthorFirstName() {
-        return author != null ? author.getFirstName() : null;
-    }
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getAuthorLastName() {
-        return author != null ? author.getLastName() : null;
-    }
-    
-    @JsonProperty("author")
-    public List<String> getAuthorDetails() {
-    	
-        List<String> authorDetails = new ArrayList<>();
-        
-        authorDetails.add(getAuthorHonorific());
-        
-        if ( getAuthorFirstName().length() == 0 ) {
-        	authorDetails.add(getAuthorLastName());
-        	
-        } else if ( getAuthorLastName().length() != 0 ) {
-        	authorDetails.add(getAuthorLastName());
-
-        } else {
-        	authorDetails.add(getAuthorFirstName());
-        }
-
-        return authorDetails;
+	/**
+	 * Helper method to specify full name of author along with other post properties 
+	 * Should appear with key "authorFullName" when BulletinPost instances are serialised for front end
+	 * 
+	 * @return String
+	 */
+	@JsonProperty("authorFullName")
+    public String getAuthorFullName() {
+		
+		if (author != null ) {
+			return author.getFullName();
+		} else {
+			return "";
+		}
     }
 	
 	public Integer getId() {

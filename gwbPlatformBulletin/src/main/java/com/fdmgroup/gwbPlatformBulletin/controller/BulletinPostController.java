@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fdmgroup.gwbPlatformBulletin.exceptions.ValidationException;
 import com.fdmgroup.gwbPlatformBulletin.model.BulletinPost;
 import com.fdmgroup.gwbPlatformBulletin.service.BulletinPostService;
+import com.fdmgroup.gwbPlatformBulletin.utils.BulletinPostDTO;
 
 import jakarta.validation.Valid;
 
@@ -43,9 +44,15 @@ public class BulletinPostController {
         return bulletinPostService.getAllPosts();
     }
     
+//    @GetMapping("/{id}")
+//    public Optional<BulletinPost> getPostById(@PathVariable(value = "id") Integer postId) {
+//        return bulletinPostService.getPostById(postId);
+//    }
+    
     @GetMapping("/{id}")
-    public Optional<BulletinPost> getPostById(@PathVariable(value = "id") Integer postId) {
-        return bulletinPostService.getPostById(postId);
+    public BulletinPostDTO getBulletinPostById(@PathVariable Integer postId) {
+        Optional<BulletinPost> post = bulletinPostService.getPostById(postId); 
+        return new BulletinPostDTO(post);
     }
  
     @GetMapping("/{authorSearch}")

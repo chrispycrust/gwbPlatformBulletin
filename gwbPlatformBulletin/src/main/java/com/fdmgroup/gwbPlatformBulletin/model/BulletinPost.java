@@ -2,6 +2,7 @@ package com.fdmgroup.gwbPlatformBulletin.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -45,12 +46,21 @@ public class BulletinPost {
 	private String title;
 	
 	/**
-	 * Column definition set tO TEXT allows for longer information exceeding VARCHAR(255) in SQL database
+	 * @Column columnDefinition set to TEXT allows for longer information exceeding VARCHAR(255) in database
 	 */
 	@NotBlank(message = "Content cannot be blank")
 	@Column(columnDefinition = "TEXT", nullable = false)
 	private String content;
 	
+	/*
+	 * JSON deserialises LocalDateTime into a user friendly format 
+	 * (verbose - includes day of the week and full month name, 12 hr clock format)
+	 * 
+	 * Example formatted output: "Wednesday, April 12, 2023 03:45:30 PM"
+	 * 
+	 * Does not account for different time zones
+	 */
+	@JsonFormat(pattern = "EEEE, MMMM dd, yyyy hh:mm:ss a")
 	private LocalDateTime datePublished;
 	
 	public BulletinPost() {
@@ -124,7 +134,7 @@ public class BulletinPost {
 	 * Set the publish date right before saving it for the first time
 	 */
 	@PrePersist
-    public void onPrePersist() {
+    public void saveDatePublished() {
         setDatePublished(LocalDateTime.now());
     }
 
@@ -132,6 +142,5 @@ public class BulletinPost {
 	public String toString() {
 		return "BulletinPost [id=" + id + ", author=" + author + ", title=" + title + ", content=" + content + "]";
 	}
-
 
 }

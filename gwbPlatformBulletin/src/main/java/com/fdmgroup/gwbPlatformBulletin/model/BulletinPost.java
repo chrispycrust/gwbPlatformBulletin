@@ -1,13 +1,8 @@
 package com.fdmgroup.gwbPlatformBulletin.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-//import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -17,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -40,7 +36,7 @@ public class BulletinPost {
 	
 	/**
 	 * @NotBlank 
-	 * ensures a field is not null, empty, or just whitespace
+	 * Ensures a field is not null, empty, or just whitespace
 	 * Immediately returns message to the application user
 	 * Server-side validation 
 	 */
@@ -54,6 +50,9 @@ public class BulletinPost {
 	@NotBlank(message = "Content cannot be blank")
 	@Column(columnDefinition = "TEXT", nullable = false)
 	private String content;
+	
+	
+	private LocalDateTime datePublished;
 	
 	public BulletinPost() {
 	}
@@ -113,6 +112,22 @@ public class BulletinPost {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
+	public LocalDateTime getDatePublished() {
+		return datePublished;
+	}
+
+	public void setDatePublished(LocalDateTime datePublished) {
+		this.datePublished = datePublished;
+	}
+	
+	/**
+	 * Set the publish date right before saving it for the first time
+	 */
+	@PrePersist
+    public void onPrePersist() {
+        setDatePublished(LocalDateTime.now());
+    }
 
 	@Override
 	public String toString() {

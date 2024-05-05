@@ -56,7 +56,7 @@ public class Runner implements ApplicationRunner {
 		List<Member> members = new ArrayList<>();
 		members.add(new Member("Miss", "Eilish", "Jackson", new ArrayList<>()));
 		members.add(new Member("Ms", "Vanessa", "A", new ArrayList<>()));
-		members.add(new Member("Queen", "Charlotte", "", new ArrayList<>()));
+		members.add(new Member("Her Majesty Queen", "Charlotte", "of Mecklenburg-Strelitz", new ArrayList<>()));
 		members.add(new Member("Lady", "Agatha", "Danbury", new ArrayList<>()));
 		members.add(new Member("Lady", "", "Whistledown", new ArrayList<>()));
 		members.add(new Member("Lady", "Violet", "Bridgerton", new ArrayList<>()));

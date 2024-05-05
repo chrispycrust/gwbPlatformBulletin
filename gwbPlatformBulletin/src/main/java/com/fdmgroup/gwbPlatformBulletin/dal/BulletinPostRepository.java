@@ -1,5 +1,6 @@
 package com.fdmgroup.gwbPlatformBulletin.dal;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,5 +13,11 @@ import com.fdmgroup.gwbPlatformBulletin.model.Member;
 public interface BulletinPostRepository extends JpaRepository<BulletinPost, Integer> {
 	
 	Optional<BulletinPost> save(Optional<BulletinPost> bulletinPost);
+
+	
+	
+	public List<BulletinPost> findByAuthorContainingIgnoreCaseOrTitleContainingIgnoreCaseOrContentContainingIgnoreCase(String searchTerm);
+	
+	
 
 }

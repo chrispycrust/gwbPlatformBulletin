@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fdmgroup.gwbPlatformBulletin.exceptions.NonexistentPostException;
 import com.fdmgroup.gwbPlatformBulletin.exceptions.ValidationException;
 import com.fdmgroup.gwbPlatformBulletin.model.BulletinPost;
 import com.fdmgroup.gwbPlatformBulletin.service.BulletinPostService;
@@ -29,8 +30,14 @@ public class BulletinPostController {
 	@Autowired
     private BulletinPostService bulletinPostService;
 	
+	/**
+	 * @Valid ensures posts are validated according to constraints in BulletinPost
+	 * 
+	 * @param post
+	 * @return BulletinPost
+	 */
 	@PostMapping
-    public BulletinPost createPost(@RequestBody BulletinPost post) {
+    public BulletinPost createPost(@Valid @RequestBody BulletinPost post) {
 		try {
             return bulletinPostService.createPost(post);
             
@@ -39,31 +46,48 @@ public class BulletinPostController {
         }
     }
 	
+	
     @GetMapping
     public List<BulletinPost> getAllPosts() {
         return bulletinPostService.getAllPosts();
     }
     
     @GetMapping("/{id}")
-    public Optional<BulletinPost> getPostById(@PathVariable(value = "id") Integer postId) {
-        return bulletinPostService.getPostById(postId);
+    public BulletinPost getPostById(@PathVariable(value = "id") Integer postId) {
+    	return bulletinPostService.getPostById(postId)
+    			.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found with id: " + postId));
     }
     
-    @GetMapping("/{authorSearch}")
-    public Optional<List<BulletinPost>> getPostByAuthor(@PathVariable(value = "authorSearch") String authorSearch) {
+    // get post by author id?
+    
+//    @GetMapping("/author/{authorSearch}")
+//    public List<BulletinPost> getPostByAuthor(@PathVariable(value = "authorSearch") String authorSearch) {
+//    	
+//        return bulletinPostService.getPostByAuthor(authorSearch);
+//        
+//    }
+
+    @GetMapping("/search/{searchTerm}")
+    public List<BulletinPost> getPostBySearch(@PathVariable(value = "searchTerm") String searchTerm) {
     	
-        return bulletinPostService.getPostByMemberName(authorSearch);
+        return bulletinPostService.findByAuthorContainingIgnoreCaseOrTitleContainingIgnoreCaseOrContentContainingIgnoreCase(searchTerm);
         
     }
     
-    @PutMapping
-    public void updatePost(@RequestBody BulletinPost post) {
-        bulletinPostService.updatePost(post);
+    @PutMapping("/{id}")
+    public void updatePost(@PathVariable Integer id, @Valid @RequestBody BulletinPost post) throws NonexistentPostException {
+    	bulletinPostService.updatePost(id, post);
     }
     
     @DeleteMapping("/{id}")
     public void deletePost(@PathVariable(value = "id") Integer postId) {
-        bulletinPostService.deleteById(postId);
+    	
+    	boolean deleted = bulletinPostService.deleteById(postId);
+    	
+        if (!deleted) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found with id: " + postId);
+        }
+
     }
 
 }

@@ -22,7 +22,6 @@ import com.fdmgroup.gwbPlatformBulletin.exceptions.ConflictException;
 import com.fdmgroup.gwbPlatformBulletin.model.Member;
 import com.fdmgroup.gwbPlatformBulletin.service.MemberService;
 
-
 @ExtendWith(MockitoExtension.class) 
 class MemberControllerTest {
 

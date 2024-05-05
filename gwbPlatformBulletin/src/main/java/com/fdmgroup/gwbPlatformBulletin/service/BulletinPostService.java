@@ -8,8 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fdmgroup.gwbPlatformBulletin.dal.BulletinPostRepository;
+import com.fdmgroup.gwbPlatformBulletin.exceptions.NonexistentPostException;
 import com.fdmgroup.gwbPlatformBulletin.exceptions.ValidationException;
 import com.fdmgroup.gwbPlatformBulletin.model.BulletinPost;
+import com.fdmgroup.gwbPlatformBulletin.model.Member;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class BulletinPostService {
@@ -21,9 +25,10 @@ public class BulletinPostService {
 	 * Date Published will reflect when post has been submitted and saved to database, not post instantiation
 	 * 
 	 * @param post
-	 * @return
+	 * @return bulletin post
 	 * @throws ValidationException
 	 */
+	@Transactional
 	public BulletinPost createPost(BulletinPost post) throws ValidationException {
 		
 		try { 
@@ -32,7 +37,6 @@ public class BulletinPostService {
 			return bulletinRepository.save(post);
 			
 		} catch (ValidationException ve) {
-			
 			throw ve;
 			
 		} catch (Exception e) {
@@ -49,7 +53,7 @@ public class BulletinPostService {
                 throw new ValidationException("Title cannot be empty");
             }
         } catch (Exception e) {
-            throw new ValidationException("Error processing title: " + e.getMessage());
+            throw new ValidationException("Cannot process title: " + e.getMessage());
             
         }
 
@@ -58,7 +62,7 @@ public class BulletinPostService {
                 throw new ValidationException("Content cannot be empty");
             }
         } catch (Exception e) {
-            throw new ValidationException("Error processing content: " + e.getMessage());
+            throw new ValidationException("Cannot process content: " + e.getMessage());
             
         }
     }
@@ -68,44 +72,54 @@ public class BulletinPostService {
     }
 
     public Optional<BulletinPost> getPostById(int postId) {
-        return Optional.of(bulletinRepository.findById(postId).orElse(null));
+        return bulletinRepository.findById(postId);
     }
     
-    public Optional<List<BulletinPost>> getPostByMemberName(String memberName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-    
-    public Optional<List<BulletinPost>> getPostByMemberId(Integer memberId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-    
-    // get post by honorific
-
-    public void updatePost(BulletinPost post) {
-    	bulletinRepository.save(post);
-
-    }
-
-    public void deleteById(Integer postId) {
+    /**
+	 * Allows users to make a search of all posts if it matches author name, post title or anything in the post content
+	 * Combines JPA
+	 * 
+	 */
+    public List<BulletinPost> findByAuthorContainingIgnoreCaseOrTitleContainingIgnoreCaseOrContentContainingIgnoreCase(String searchTerm) {
     	
-    	bulletinRepository.deleteById(postId);
+    	String searchTermLowercase = "%" + searchTerm.toLowerCase() + "%";
     	
-    	if (bulletinRepository.existsById(postId)) {
-			throw new RuntimeException("Delete failed. Post with ID " + postId + " could not be deleted.");
+    	return bulletinRepository.findByAuthorContainingIgnoreCaseOrTitleContainingIgnoreCaseOrContentContainingIgnoreCase(searchTermLowercase);
+
+	}
+
+    @Transactional
+    public void updatePost(Integer id, BulletinPost post) throws NonexistentPostException {
+    	
+    	post.setId(id);
+    	
+    	if (bulletinRepository.existsById(id)) {
+    		bulletinRepository.save(post);
 			
 		} else {
-			System.out.println("Post with ID " + postId + " was deleted.");
+			throw new NonexistentPostException("Post with ID " + id + " could not be found");
 			
 		}
-    }
 
+    }
+    
+    @Transactional
+    public boolean deleteById(Integer postId) {
+    	
+    	if (bulletinRepository.existsById(postId)) {
+    		
+    		bulletinRepository.deleteById(postId);
+    	
+    		return true;
+    	
+    	}
+    	
+    	return false;
+    }
+    
+    @Transactional
 	public void saveAll(List<BulletinPost> bulletinBoard) {
-		
-		for ( BulletinPost post : bulletinBoard ) {
-			bulletinRepository.save(post);
-		}
+		bulletinRepository.saveAll(bulletinBoard);
 	}
 
 	

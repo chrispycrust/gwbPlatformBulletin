@@ -49,6 +49,7 @@ public class MemberService {
 	}
 
     public void updateMember(Member updatedMember) {
+    
     	memberRepository.save(updatedMember);
     	
 	}

@@ -1,5 +1,6 @@
 package com.fdmgroup.gwbPlatformBulletin.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,7 @@ public class BulletinPostService {
 		
 		try { 
 			validatePost(post);
+			post.setDatePublished(LocalDateTime.now());
 			return bulletinRepository.save(post);
 			
 		} catch (ValidationException ve) {

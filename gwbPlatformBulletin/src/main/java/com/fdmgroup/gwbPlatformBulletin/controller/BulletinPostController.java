@@ -44,17 +44,11 @@ public class BulletinPostController {
         return bulletinPostService.getAllPosts();
     }
     
-//    @GetMapping("/{id}")
-//    public Optional<BulletinPost> getPostById(@PathVariable(value = "id") Integer postId) {
-//        return bulletinPostService.getPostById(postId);
-//    }
-    
     @GetMapping("/{id}")
-    public BulletinPostDTO getBulletinPostById(@PathVariable Integer postId) {
-        Optional<BulletinPost> post = bulletinPostService.getPostById(postId); 
-        return new BulletinPostDTO(post);
+    public Optional<BulletinPost> getPostById(@PathVariable(value = "id") Integer postId) {
+        return bulletinPostService.getPostById(postId);
     }
- 
+    
     @GetMapping("/{authorSearch}")
     public Optional<List<BulletinPost>> getPostByAuthor(@PathVariable(value = "authorSearch") String authorSearch) {
     	
@@ -62,12 +56,6 @@ public class BulletinPostController {
         
     }
     
-//    @PutMapping("/{id}")
-//    public BulletinPost updatePost(@PathVariable(value = "id") Integer postId, @RequestBody BulletinPost postDetails) {
-//        return bulletinPostService.updatePost(postId, postDetails);
-//    }
-    
-    // to update a post wouldn't you have to find the post by id first before updating?
     @PutMapping
     public void updatePost(@RequestBody BulletinPost post) {
         bulletinPostService.updatePost(post);

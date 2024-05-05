@@ -51,7 +51,6 @@ public class BulletinPost {
 	@Column(columnDefinition = "TEXT", nullable = false)
 	private String content;
 	
-	
 	private LocalDateTime datePublished;
 	
 	public BulletinPost() {

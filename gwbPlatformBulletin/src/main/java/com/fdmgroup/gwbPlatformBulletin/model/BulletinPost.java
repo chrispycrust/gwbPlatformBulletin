@@ -42,6 +42,7 @@ public class BulletinPost {
 	 * @NotBlank 
 	 * ensures a field is not null, empty, or just whitespace
 	 * Immediately returns message to the application user
+	 * Server-side validation 
 	 */
 	@NotBlank(message = "Title cannot be blank")
 	@Column(nullable = false)
@@ -54,7 +55,12 @@ public class BulletinPost {
 	@Column(columnDefinition = "TEXT", nullable = false)
 	private String content;
 	
-	private LocalDateTime datePublished;
+	/**
+	 * sets the datePublished field to the current date and time when the object is instantiated
+	 * before the constructor's body is executed
+	 */
+	private LocalDateTime datePublished = LocalDateTime.now();
+	// TODO account for different time zones in future
 
 	public BulletinPost() {
 	}
@@ -64,8 +70,6 @@ public class BulletinPost {
 		this.author = author;
 		this.title = title;
 		this.content = content;
-		this.datePublished = LocalDateTime.now(); 
-		// TODO account for different time zones in future
 
 	}
 	

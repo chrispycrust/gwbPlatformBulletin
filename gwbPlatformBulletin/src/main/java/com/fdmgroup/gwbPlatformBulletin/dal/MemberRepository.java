@@ -16,13 +16,12 @@ import com.fdmgroup.gwbPlatformBulletin.model.Member;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Integer> {
 	
-	Member findByFirstName(String name);
-
-	Member save(Member member);
-
-	@Query("select u from User u where upper(u.name) like concat('%', :input, '%')")
-	List<Member> findByPartialMatch(@Param("input") String name);
-
-	boolean existsByFullName(String fullName);
+	List<Member> findByFirstName(String name);
+	
+	@Query("SELECT m FROM Member m WHERE LOWER(CONCAT(m.honorific, ' ', m.firstName, ' ', m.lastName)) LIKE :searchTerm")
+	List<Member> findBySearchTerm(@Param("searchTerm") String searchTerm);
+	
+	@Query("SELECT COUNT(m) > 0 FROM Member m WHERE CONCAT(m.honorific, ' ', m.firstName, ' ', m.lastName) = LOWER(:fullName)")
+    boolean existsByFullName(@Param("fullName") String fullName);
 
 }

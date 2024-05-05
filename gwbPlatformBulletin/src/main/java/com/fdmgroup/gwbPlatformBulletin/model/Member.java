@@ -23,7 +23,6 @@ import jakarta.persistence.OneToMany;
  */
 
 @Entity
-//@Component not sure if necessary
 public class Member {
 	
 	@Id
@@ -31,7 +30,11 @@ public class Member {
 	private Integer id;
 	
 	private String honorific; // could be an enum? Queen, Princess, Lady, Mrs, Miss
+	
+//	@NotBlank(message = "First name cannot be blank")
 	private String firstName;
+	
+//	@NotBlank(message = "Last name cannot be blank")
 	private String lastName;
 	
 	@JsonIgnore // prevents circular return - Alice's issue

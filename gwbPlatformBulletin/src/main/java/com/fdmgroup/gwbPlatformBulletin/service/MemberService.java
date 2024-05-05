@@ -4,17 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.fdmgroup.gwbPlatformBulletin.exceptions.ConflictException;
-import com.fdmgroup.gwbPlatformBulletin.exceptions.MemberNotFoundException;
 import com.fdmgroup.gwbPlatformBulletin.dal.MemberRepository;
 import com.fdmgroup.gwbPlatformBulletin.model.Member;
 
 @Service
-// this isn't labelled a component?
 public class MemberService {
 	
 	@Autowired
@@ -22,12 +18,14 @@ public class MemberService {
 	
 	public void registerMember(Member member) throws ConflictException {
 		
-		if ( memberRepository.existsByFullName(member.getFullName()) ) {
-			throw new ConflictException("Member with name " + member.getFullName() + " already exists");
+		String fullName = member.getFullName().toLowerCase();
+		
+		if ( memberRepository.existsByFullName(fullName) ) {
+			throw new ConflictException("Member with name " + fullName + " already exists");
 			
 		} else {
 			memberRepository.save(member);
-			System.out.println("Welcome, " + member.getFullName() + "!");
+			System.out.println("Welcome, " + fullName + "!");
 			
 		}		
         
@@ -38,36 +36,18 @@ public class MemberService {
     }
 
     public Optional<Member> getMemberById(Integer memberId) {
-    	
     	return memberRepository.findById(memberId);	
 
     }
     
-    public List<Member> findBySearch(String search) {
+    public List<Member> findBySearch(String searchTerm) {
     	
-		return memberRepository.findByPartialMatch(search);
-		
-		// what to do if nothing is found?
-		
+    	String searchTermLowercase = "%" + searchTerm.toLowerCase() + "%";
+    	
+    	return memberRepository.findBySearchTerm(searchTermLowercase);
+
 	}
 
-//    public Member updateMember(Integer memberId) {
-//    	
-//    	Optional<Member> member = memberRepository.findById(memberId);
-//    	
-//    	if(!member.isPresent()) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "member not found");
-//        } 
-//    	
-////    	member.setHonorific
-////    	member.setFirstName(memberDetails.getFirstName());
-////        member.setLastName(memberDetails.getLastName());
-//        
-//        return memberRepository.save(member);
-//        
-//    }
-    
-    // how is this method used in with controller and user input from form?
     public void updateMember(Member updatedMember) {
     	memberRepository.save(updatedMember);
     	
@@ -87,11 +67,8 @@ public class MemberService {
         
     }
 
-	public void saveAll(List<Member> members) {
-		
-		for (Member member : members) {
-			memberRepository.save(member);
-		}
+	public void saveAll(List<Member> members) { // for committing dummy data
+		memberRepository.saveAll(members);
 		
 	}
 	

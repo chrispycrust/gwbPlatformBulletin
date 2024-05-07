@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,8 +31,11 @@ public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
+	private String honorific; 
 	
-	private String honorific; // could be an enum? Queen, Princess, Lady, Mrs, Miss
+//	@Enumerated(EnumType.STRING)
+//    private Honorific honorific;
 	
 	@NotBlank(message = "First name cannot be blank")
 	private String firstName;
@@ -101,6 +106,7 @@ public class Member {
 
 	    if (honorific != null && !honorific.isEmpty()) {
 	        fullName.append(honorific.trim()).append(" ");
+//	        fullName.append(honorific.getTitle()).append(" ");
 	    }
 
 	    if (firstName != null && !firstName.isEmpty()) {
@@ -148,5 +154,21 @@ public class Member {
 				+ ", email=" + email + "]";
 	}
 	
+	public enum Honorific {
+		
+		QUEEN,
+	    PRINCESS,
+	    LADY,
+	    THE_HONORABLE,
+	    DUCHESS,
+	    VISCOUNTESS,
+	    MARCHIONESS,
+	    COUNTESS,
+	    Baroness,
+	    DOWAGER,
+	    MRS,
+	    MISS;
+        
+    }
 
 }

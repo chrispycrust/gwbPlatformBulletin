@@ -33,9 +33,10 @@ public class MemberController {
         memberService.registerMember(member);
     }
     
-	@GetMapping ("/me" )
+	@GetMapping ("/me")
 	public Member getCurrentlyLoggedInUser(Authentication auth) {
-		return MemberService.findMemberByName(auth-getName());
+		return memberService.findMemberByEmail(auth.getName())
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found"));
 	}
 	
     @GetMapping

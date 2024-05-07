@@ -24,6 +24,6 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 	@Query("SELECT COUNT(m) > 0 FROM Member m WHERE CONCAT(m.honorific, ' ', m.firstName, ' ', m.lastName) = LOWER(:fullName)")
     boolean existsByFullName(@Param("fullName") String fullName);
 
-	Object findByEmail(String username);
+	Optional<Member> findByEmail(String username);
 
 }

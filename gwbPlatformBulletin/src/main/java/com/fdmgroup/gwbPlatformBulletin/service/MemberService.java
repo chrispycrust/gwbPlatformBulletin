@@ -39,8 +39,7 @@ public class MemberService {
 			memberRepository.save(member);
 			System.out.println("NEW USER ADDED:" + fullName);
 			
-		}		
-        
+		}	
     }
 
     public List<Member> getAllMembers() {
@@ -51,6 +50,11 @@ public class MemberService {
     	return memberRepository.findById(memberId);	
 
     }
+    
+    public Optional<Member>findMemberByEmail(String email) {
+		
+		return null;
+	}
     
     public List<Member> findBySearch(String searchTerm) {
     	
@@ -85,9 +89,6 @@ public class MemberService {
 		
 	}
 
-	public Member findMemberByEmail(String email) {
-		
-		return null;
-	}
+	
 	
 }

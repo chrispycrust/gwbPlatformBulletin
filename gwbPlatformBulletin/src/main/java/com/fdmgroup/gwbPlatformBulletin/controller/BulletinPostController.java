@@ -67,12 +67,12 @@ public class BulletinPostController {
 //        
 //    }
 
-    @GetMapping("/search/{searchTerm}")
-    public List<BulletinPost> getPostBySearch(@PathVariable(value = "searchTerm") String searchTerm) {
-    	
-        return bulletinPostService.findByAuthorContainingIgnoreCaseOrTitleContainingIgnoreCaseOrContentContainingIgnoreCase(searchTerm);
-        
-    }
+//    @GetMapping("/search/{searchTerm}")
+//    public List<BulletinPost> getPostBySearch(@PathVariable(value = "searchTerm") String searchTerm) {
+//    	
+//        return bulletinPostService.findByAuthorContainingIgnoreCaseOrTitleContainingIgnoreCaseOrContentContainingIgnoreCase(searchTerm);
+//        
+//    }
     
     @PutMapping("/{id}")
     public void updatePost(@PathVariable Integer id, @Valid @RequestBody BulletinPost post) throws NonexistentPostException {

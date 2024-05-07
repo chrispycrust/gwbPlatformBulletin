@@ -80,13 +80,15 @@ public class BulletinPostService {
 	 * Combines JPA
 	 * 
 	 */
-    public List<BulletinPost> findByAuthorContainingIgnoreCaseOrTitleContainingIgnoreCaseOrContentContainingIgnoreCase(String searchTerm) {
-    	
-    	String searchTermLowercase = "%" + searchTerm.toLowerCase() + "%";
-    	
-    	return bulletinRepository.findByAuthorContainingIgnoreCaseOrTitleContainingIgnoreCaseOrContentContainingIgnoreCase(searchTermLowercase);
-
-	}
+//    public List<BulletinPost> findByAuthorContainingIgnoreCaseOrTitleContainingIgnoreCaseOrContentContainingIgnoreCase(String searchTerm, String searchTerm2, String searchTerm3) {
+//    	
+//    	String searchTermLowercase = "%" + searchTerm.toLowerCase() + "%";
+//    	String searchTerm2Lowercase = "%" + searchTerm2.toLowerCase() + "%";
+//    	String searchTerm3Lowercase = "%" + searchTerm3.toLowerCase() + "%";
+//    	
+//    	return bulletinRepository.findByAuthorContainingIgnoreCaseOrTitleContainingIgnoreCaseOrContentContainingIgnoreCase(searchTermLowercase, searchTerm2Lowercase, searchTerm3Lowercase);
+//
+//	}
 
     @Transactional
     public void updatePost(Integer id, BulletinPost post) throws NonexistentPostException {

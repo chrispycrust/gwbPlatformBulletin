@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 
 
 /**
@@ -31,28 +32,39 @@ public class Member {
 	
 	private String honorific; // could be an enum? Queen, Princess, Lady, Mrs, Miss
 	
-//	@NotBlank(message = "First name cannot be blank")
+	@NotBlank(message = "First name cannot be blank")
 	private String firstName;
 	
-//	@NotBlank(message = "Last name cannot be blank")
+	@NotBlank(message = "Last name cannot be blank")
 	private String lastName;
 	
 	@JsonIgnore // prevents circular return - Alice's issue
 	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
 	List<BulletinPost> postHistory = new ArrayList<>();
 	
+	@NotBlank(message = "Email cannot be blank")
+	private String email;
+	
+	@NotBlank(message = "Password cannot be blank")
+	private String password;
+	
+	
 	public Member() {
 		super();
 	}
 	
-	public Member(String honorific, String firstName, String lastName, List<BulletinPost> postHistory) {
-		
+	
+	public Member(Integer id, String honorific, @NotBlank(message = "First name cannot be blank") String firstName,
+			@NotBlank(message = "Last name cannot be blank") String lastName, List<BulletinPost> postHistory,
+			@NotBlank(message = "Email cannot be blank") String email,
+			@NotBlank(message = "Password cannot be blank") String password) {
 		super();
 		this.honorific = honorific;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.postHistory = postHistory;
-		
+		this.email = email;
+		this.password = password;
 	}
 
 	public Integer getId() {
@@ -106,10 +118,35 @@ public class Member {
 		this.lastName = lastName;
 	}
 
+	public List<BulletinPost> getPostHistory() {
+		return postHistory;
+	}
+
+	public void setPostHistory(List<BulletinPost> postHistory) {
+		this.postHistory = postHistory;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", honorific=" + honorific + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", postHistory=" + postHistory + "]";
+				+ ", email=" + email + "]";
 	}
+	
 
 }

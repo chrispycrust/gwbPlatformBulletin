@@ -51,9 +51,8 @@ public class MemberService {
 
     }
     
-    public Optional<Member>findMemberByEmail(String email) {
-		
-		return null;
+    public Optional<Member> findMemberByEmail(String email) {
+    	return memberRepository.findByEmail(email);	
 	}
     
     public List<Member> findBySearch(String searchTerm) {
@@ -86,9 +85,6 @@ public class MemberService {
 
 	public void saveAll(List<Member> members) { // for committing dummy data
 		memberRepository.saveAll(members);
-		
 	}
-
-	
 	
 }

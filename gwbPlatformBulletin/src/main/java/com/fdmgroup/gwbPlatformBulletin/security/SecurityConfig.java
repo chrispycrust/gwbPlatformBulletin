@@ -1,4 +1,4 @@
-package com.fdm.userDemo.security;
+package com.fdmgroup.gwbPlatformBulletin.security;
 
 import java.util.Arrays;
 
@@ -71,8 +71,9 @@ public class SecurityConfig {
         	.csrf(csrf -> csrf.disable())
         	.authorizeHttpRequests(authz -> authz
         			.requestMatchers("/adminonly").hasAuthority("SCOPE_ADMIN")
+        			.requestMatchers("/wall").permitAll() // i have extra public page not specified in backend not sure if i have to put it here
         			.requestMatchers("/auth/login").permitAll()
-        			.requestMatchers("/user/register").permitAll()       			
+        			.requestMatchers("/member/register").permitAll()       			
         			.anyRequest().authenticated()	// Default is to log in (authenticated). Can change to permitAll to let anyone have access
         	)
 //        	.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)  //The old syntax
@@ -84,16 +85,11 @@ public class SecurityConfig {
         return http.build();
 	}
 	
-	
-	
-
-	
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		final CorsConfiguration configuration = new CorsConfiguration();
 
-		configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173")); // this is the React/frontend port, not
-																					// the java port
+		configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173")); // this is the React/frontend port, not the java port
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
 		configuration.setAllowCredentials(true);
 		configuration.setAllowedHeaders(Arrays.asList("*"));

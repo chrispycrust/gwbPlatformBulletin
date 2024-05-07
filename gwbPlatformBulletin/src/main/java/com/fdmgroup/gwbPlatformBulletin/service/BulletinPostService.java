@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.fdmgroup.gwbPlatformBulletin.dal.BulletinPostRepository;
+import com.fdmgroup.gwbPlatformBulletin.dal.MemberRepository;
 import com.fdmgroup.gwbPlatformBulletin.exceptions.NonexistentPostException;
 import com.fdmgroup.gwbPlatformBulletin.exceptions.ValidationException;
 import com.fdmgroup.gwbPlatformBulletin.model.BulletinPost;
@@ -20,7 +22,14 @@ public class BulletinPostService {
 	
 	@Autowired
     private BulletinPostRepository bulletinRepository;
-	
+	private PasswordEncoder encoder;
+
+	public BulletinPostService(BulletinPostRepository bulletinRepository, PasswordEncoder encoder) {
+		super();
+		this.bulletinRepository = bulletinRepository;
+		this.encoder = encoder;
+	}
+
 	/**
 	 * Date Published will reflect when post has been submitted and saved to database, not post instantiation
 	 * 
@@ -41,9 +50,7 @@ public class BulletinPostService {
 			
 		} catch (Exception e) {
 			throw new RuntimeException("Error saving bulletin post", e);
-			
         }
-		
     }
 
     private void validatePost(BulletinPost post) throws ValidationException {

@@ -1,4 +1,4 @@
-package com.fdm.userDemo.security;
+package com.fdmgroup.gwbPlatformBulletin.security;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;

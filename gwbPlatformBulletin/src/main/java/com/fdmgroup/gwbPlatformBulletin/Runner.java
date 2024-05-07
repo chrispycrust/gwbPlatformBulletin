@@ -28,16 +28,17 @@ import jakarta.transaction.Transactional;
 @Service
 public class Runner implements ApplicationRunner {
 	
-	ApplicationContext context;
+	private ApplicationContext context;
 	MemberRepository memberRepo;
 	MemberService memberService;
 	BulletinPostRepository bulletinRepo;
 	BulletinPostService bulletinService;
 	
 	@Autowired
-	public Runner(ApplicationContext context, MemberRepository memberRepo, 
-			MemberService memberService, BulletinPostRepository bulletinRepo, 
-			BulletinPostService bulletinService) {
+	public Runner(ApplicationContext context, 
+			MemberRepository memberRepo, MemberService memberService, 
+			BulletinPostRepository bulletinRepo, BulletinPostService bulletinService) {
+		
 		this.context = context;
 		this.memberService = memberService;
 		this.bulletinRepo = bulletinRepo;
@@ -50,31 +51,35 @@ public class Runner implements ApplicationRunner {
 	public void run(ApplicationArguments args) throws Exception {
 		
 		// ------------------------------------
+		//	DATA LOADERS
+		// ------------------------------------
+		
+		// ------------------------------------
 		//	create dummy members
 		// ------------------------------------
 		
 		List<Member> members = new ArrayList<>();
-		members.add(new Member("Miss", "Eilish", "Jackson", new ArrayList<>()));
-		members.add(new Member("Ms", "Vanessa", "A", new ArrayList<>()));
-		members.add(new Member("Her Majesty Queen", "Charlotte", "of Mecklenburg-Strelitz", new ArrayList<>()));
-		members.add(new Member("Lady", "Agatha", "Danbury", new ArrayList<>()));
-		members.add(new Member("Lady", "", "Whistledown", new ArrayList<>()));
-		members.add(new Member("Lady", "Violet", "Bridgerton", new ArrayList<>()));
-		members.add(new Member("Duchess", "Daphne", "Basset", new ArrayList<>()));
-		members.add(new Member("The Honourable", "Eloise", "Bridgerton", new ArrayList<>()));
-		members.add(new Member("Miss", "Mary", "Sharma", new ArrayList<>()));
-		members.add(new Member("Viscountess", "Kate", "Bridgerton", new ArrayList<>()));
-		members.add(new Member("Miss", "Edwina", "Sharma", new ArrayList<>()));
-		members.add(new Member("Mrs", "Alice", "Mondrich", new ArrayList<>()));
-		members.add(new Member("Lady", "Portia", "Featherington", new ArrayList<>()));
-		members.add(new Member("Miss", "Penelope", "Featherington", new ArrayList<>()));
-		members.add(new Member("Miss", "Siena", "Rosso", new ArrayList<>()));
-		members.add(new Member("Lady", "Marina", "Crane", new ArrayList<>()));
-		members.add(new Member("Madame", "Genevieve", "Delacroix", new ArrayList<>()));
-		members.add(new Member("Miss", "Cressida", "Cowper", new ArrayList<>()));
-		members.add(new Member("Miss", "Rose", "Nolan", new ArrayList<>()));
-		members.add(new Member("Mrs", "", "Varley", new ArrayList<>()));
-		members.add(new Member("Mrs", "", "Wilson", new ArrayList<>()));
+		members.add(new Member("Miss", "Eilish", "Jackson", "eilishJackson@email.com", "eilishJackson123", new ArrayList<>()));
+		members.add(new Member("Ms", "Vanessa", "A", "itsMeVanessa@email.com", "vanessaA123", new ArrayList<>()));
+		members.add(new Member("Her Majesty Queen", "Charlotte", "of Mecklenburg-Strelitz", "imtheboss@theCrown.com", "royalBaddie123", new ArrayList<>()));
+		members.add(new Member("Lady", "Agatha", "Danbury", "imtheboss@royalty.com", "default123", new ArrayList<>()));
+		members.add(new Member("Lady", "", "Whistledown", "imtheboss@royalty.com", "default123", new ArrayList<>()));
+		members.add(new Member("Lady", "Violet", "Bridgerton", "imtheboss@royalty.com", "default123", new ArrayList<>()));
+		members.add(new Member("Duchess", "Daphne", "Basset", "imtheboss@royalty.com", "default123123", new ArrayList<>()));
+		members.add(new Member("The Honourable", "Eloise", "Bridgerton", "imtheboss@royalty.com", "default123", new ArrayList<>()));
+		members.add(new Member("Miss", "Mary", "Sharma", "imtheboss@royalty.com", "default123123", new ArrayList<>()));
+		members.add(new Member("Viscountess", "Kate", "Bridgerton", "imtheboss@royalty.com", "default123123", new ArrayList<>()));
+		members.add(new Member("Miss", "Edwina", "Sharma", "imtheboss@royalty.com", "default123123", new ArrayList<>()));
+		members.add(new Member("Mrs", "Alice", "Mondrich", "imtheboss@royalty.com", "default123123", new ArrayList<>()));
+		members.add(new Member("Lady", "Portia", "Featherington", "imtheboss@royalty.com", "default123123", new ArrayList<>()));
+		members.add(new Member("Miss", "Penelope", "Featherington", "imtheboss@royalty.com", "default123123", new ArrayList<>()));
+		members.add(new Member("Miss", "Siena", "Rosso", "imtheboss@royalty.com", "default123123", new ArrayList<>()));
+		members.add(new Member("Lady", "Marina", "Crane", "imtheboss@royalty.com", "default123123", new ArrayList<>()));
+		members.add(new Member("Madame", "Genevieve", "Delacroix", "imtheboss@royalty.com", "default123123", new ArrayList<>()));
+		members.add(new Member("Miss", "Cressida", "Cowper", "imtheboss@royalty.com", "default123123", new ArrayList<>()));
+		members.add(new Member("Miss", "Rose", "Nolan", "imtheboss@royalty.com", "default123", new ArrayList<>()));
+		members.add(new Member("Mrs", "", "Varley", "imtheboss@royalty.com", "rdefault123", new ArrayList<>()));
+		members.add(new Member("Mrs", "", "Wilson", "imtheboss@royalty.com", "default123", new ArrayList<>()));
 		
 		memberService.saveAll(members);
 		

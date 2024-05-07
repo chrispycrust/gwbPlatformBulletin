@@ -38,33 +38,33 @@ public class Member {
 	@NotBlank(message = "Last name cannot be blank")
 	private String lastName;
 	
-	@JsonIgnore // prevents circular return - Alice's issue
-	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-	List<BulletinPost> postHistory = new ArrayList<>();
-	
 	@NotBlank(message = "Email cannot be blank")
 	private String email;
 	
 	@NotBlank(message = "Password cannot be blank")
 	private String password;
 	
+	@JsonIgnore // prevents circular return - Alice's issue
+	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+	List<BulletinPost> postHistory = new ArrayList<>();
 	
 	public Member() {
 		super();
 	}
 	
-	
-	public Member(Integer id, String honorific, @NotBlank(message = "First name cannot be blank") String firstName,
-			@NotBlank(message = "Last name cannot be blank") String lastName, List<BulletinPost> postHistory,
+	public Member(String honorific, @NotBlank(message = "First name cannot be blank") String firstName,
+			@NotBlank(message = "Last name cannot be blank") String lastName,
 			@NotBlank(message = "Email cannot be blank") String email,
-			@NotBlank(message = "Password cannot be blank") String password) {
+			@NotBlank(message = "Password cannot be blank") String password,
+			List<BulletinPost> postHistory
+	){
 		super();
 		this.honorific = honorific;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.postHistory = postHistory;
 		this.email = email;
 		this.password = password;
+		this.postHistory = postHistory;
 	}
 
 	public Integer getId() {

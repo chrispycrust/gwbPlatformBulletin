@@ -1,4 +1,4 @@
-package com.fdm.userDemo.security;
+package com.fdmgroup.gwbPlatformBulletin.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,20 +23,6 @@ public class AuthController {
         String token = tokenService.generateToken(authentication);
         LOG.debug("Token granted: {}", token);
         return token;
-    }
-    
-    @GetMapping("example")
-    public String example(Authentication auth) {
-    	System.out.println("name:  " +auth.getName());
-    	System.out.println("princ: " + auth.getPrincipal());
-    	System.out.println("creds: " + auth.getCredentials());
-    	System.out.println(auth.getAuthorities());
-    	return "Hello, " + auth.getName();
-    }
-    
-    @GetMapping("adminonly")
-    public String example() {
-    	return "You must be an admin";
     }
     
 }

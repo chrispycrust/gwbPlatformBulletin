@@ -1,28 +1,33 @@
-package com.fdm.userDemo.security;
+package com.fdmgroup.gwbPlatformBulletin.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.fdm.userDemo.model.User;
-import com.fdm.userDemo.dal.*;
+import com.fdmgroup.gwbPlatformBulletin.dal.MemberRepository;
+import com.fdmgroup.gwbPlatformBulletin.model.Member;
+import com.fdmgroup.gwbPlatformBulletin.dal.*;
 
 @Service
 public class AuthUserService implements org.springframework.security.core.userdetails.UserDetailsService{
-	private UserRepository userRepo;
+	
+	private MemberRepository memberRepository;
 
 	@Autowired
-	public AuthUserService(UserRepository userRepo) {
+	public AuthUserService(MemberRepository memberRepository) {
 		super();
-		this.userRepo = userRepo;
+		this.memberRepository = memberRepository;
 	}
 
 	@Override
 	public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = this.userRepo.findByFirstName(username).orElseThrow(
+		// CHANGE TO findByName !!!!!!!!!!!
+		Member member = this.memberRepository.findByEmail(username).orElseThrow(
 				()-> new UsernameNotFoundException(username));
-		return new AuthUser(user);
+		return new AuthUser(member);
 	}
+
 	
 	
 

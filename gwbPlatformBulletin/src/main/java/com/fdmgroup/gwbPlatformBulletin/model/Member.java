@@ -164,7 +164,7 @@ public class Member {
 	    VISCOUNTESS,
 	    MARCHIONESS,
 	    COUNTESS,
-	    Baroness,
+	    BARONESS,
 	    DOWAGER,
 	    MRS,
 	    MISS;

@@ -131,6 +131,10 @@ public class BulletinPostService {
 		bulletinRepository.saveAll(bulletinBoard);
 	}
 
+	public List<BulletinPost> findByAuthorId(Integer authorId) {
+		return bulletinRepository.findByAuthorId(authorId);
+	}
+
 	
 	
 }

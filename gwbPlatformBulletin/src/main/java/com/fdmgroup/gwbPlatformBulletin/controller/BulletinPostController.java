@@ -58,19 +58,15 @@ public class BulletinPostController {
     			.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found with id: " + postId));
     }
     
-    // get post by author id?
-    
-//    @GetMapping("/author/{authorSearch}")
-//    public List<BulletinPost> getPostByAuthor(@PathVariable(value = "authorSearch") String authorSearch) {
-//    	
-//        return bulletinPostService.getPostByAuthor(authorSearch);
-//        
-//    }
+    @GetMapping("/author/{authorId}")
+    public List<BulletinPost> getPostByAuthorId(@PathVariable(value = "authorId") Integer authorId) {
+    	return bulletinPostService.findByAuthorId(authorId);
+    }
 
 //    @GetMapping("/search/{searchTerm}")
 //    public List<BulletinPost> getPostBySearch(@PathVariable(value = "searchTerm") String searchTerm) {
 //    	
-//        return bulletinPostService.findByAuthorContainingIgnoreCaseOrTitleContainingIgnoreCaseOrContentContainingIgnoreCase(searchTerm);
+//        return bulletinPostService.findByTitleContainingIgnoreCaseOrContentContainingIgnoreCase(searchTerm);
 //        
 //    }
     

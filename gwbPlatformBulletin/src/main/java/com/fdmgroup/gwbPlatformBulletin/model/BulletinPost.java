@@ -42,7 +42,7 @@ public class BulletinPost {
 	 * Server-side validation 
 	 */
 	@NotBlank(message = "Title cannot be blank")
-	@Column(nullable = false)
+	@Column(nullable = false) // how to specify how long a title can be, can't be as long as content
 	private String title;
 	
 	/**

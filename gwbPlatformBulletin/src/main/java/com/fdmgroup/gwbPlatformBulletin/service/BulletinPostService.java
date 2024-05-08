@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -75,7 +76,7 @@ public class BulletinPostService {
     }
 	
 	public List<BulletinPost> getAllPosts() {
-        return bulletinRepository.findAll();
+        return bulletinRepository.findAll(Sort.by(Sort.Direction.DESC, "datePublished"));
     }
 
     public Optional<BulletinPost> getPostById(int postId) {
@@ -122,7 +123,7 @@ public class BulletinPostService {
     		return true;
     	
     	}
-    	
+    	 
     	return false;
     }
     
@@ -134,7 +135,5 @@ public class BulletinPostService {
 	public List<BulletinPost> findByAuthorId(Integer authorId) {
 		return bulletinRepository.findByAuthorId(authorId);
 	}
-
-	
 	
 }

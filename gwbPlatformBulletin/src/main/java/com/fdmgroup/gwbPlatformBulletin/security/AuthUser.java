@@ -30,31 +30,27 @@ public class AuthUser implements org.springframework.security.core.userdetails.U
 
 	@Override
 	public String getUsername() {
-		return this.member.getEmail();		// change to name getter
+		return this.member.getEmail();
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }

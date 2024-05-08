@@ -14,6 +14,10 @@ public interface BulletinPostRepository extends JpaRepository<BulletinPost, Inte
 	
 	Optional<BulletinPost> save(Optional<BulletinPost> bulletinPost);
 
+	List<BulletinPost> findPostByAuthor(String authorName);
+	
+//	List<BulletinPost> findByAuthorId(Integer authorId);
+
 //	public List<BulletinPost> findByAuthorContainingIgnoreCaseOrTitleContainingIgnoreCaseOrContentContainingIgnoreCase(String searchTerm, String searchTerm2, String searchTerm3);
 	
 	

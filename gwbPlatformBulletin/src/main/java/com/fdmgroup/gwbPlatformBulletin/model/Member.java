@@ -154,21 +154,21 @@ public class Member {
 				+ ", email=" + email + "]";
 	}
 	
-	public enum Honorific {
-		
-		QUEEN,
-	    PRINCESS,
-	    LADY,
-	    THE_HONORABLE,
-	    DUCHESS,
-	    VISCOUNTESS,
-	    MARCHIONESS,
-	    COUNTESS,
-	    Baroness,
-	    DOWAGER,
-	    MRS,
-	    MISS;
-        
-    }
+//	public enum Honorific {
+//		
+//		QUEEN,
+//	    PRINCESS,
+//	    LADY,
+//	    THE_HONORABLE,
+//	    DUCHESS,
+//	    VISCOUNTESS,
+//	    MARCHIONESS,
+//	    COUNTESS,
+//	    Baroness,
+//	    DOWAGER,
+//	    MRS,
+//	    MISS;
+//        
+//    }
 
 }

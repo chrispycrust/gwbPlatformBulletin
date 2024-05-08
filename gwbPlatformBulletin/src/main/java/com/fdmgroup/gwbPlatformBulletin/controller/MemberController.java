@@ -33,9 +33,29 @@ public class MemberController {
         memberService.registerMember(member);
     }
     
+	/**
+	 * "me" is commonly used in REST APIs because:
+	 * - it's user friendly, the member who's logged in successfully will intuitively know it's referring to them
+	 * - more secure than using 'members/{id} as this can allow unauthorised access
+	 * - easier for front end devs to work with a static endpoint like this
+	 * 
+	 * @param auth
+	 * @return member who's successfully logged in
+	 */
+//	@GetMapping ("/me")
+//	public Member getCurrentlyLoggedInUser(Authentication auth) {
+//		return memberService.findMemberByEmail(auth.getName())
+//				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found"));
+//	}
 	@GetMapping ("/me")
 	public Member getCurrentlyLoggedInUser(Authentication auth) {
 		return memberService.findMemberByEmail(auth.getName())
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found"));
+	}
+	
+	@GetMapping ("/email/{email}")
+	public Member getEmail(@PathVariable(value = "email") String email) {
+		return memberService.findMemberByEmail(email)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found"));
 	}
 	

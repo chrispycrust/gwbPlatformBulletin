@@ -96,6 +96,10 @@ public class BulletinPostService {
 //    	return bulletinRepository.findByAuthorContainingIgnoreCaseOrTitleContainingIgnoreCaseOrContentContainingIgnoreCase(searchTermLowercase, searchTerm2Lowercase, searchTerm3Lowercase);
 //
 //	}
+    
+//    public List<BulletinPost> findPostsByAuthorId(Integer authorId) {
+//        return bulletinRepository.findByAuthorId(authorId);
+//    }
 
     @Transactional
     public void updatePost(Integer id, BulletinPost post) throws NonexistentPostException {
@@ -129,6 +133,10 @@ public class BulletinPostService {
     @Transactional
 	public void saveAll(List<BulletinPost> bulletinBoard) {
 		bulletinRepository.saveAll(bulletinBoard);
+	}
+
+	public List<BulletinPost> getPostsByAuthorName(String authorName) {
+		return bulletinRepository.findPostByAuthor(authorName);
 	}
 
 	

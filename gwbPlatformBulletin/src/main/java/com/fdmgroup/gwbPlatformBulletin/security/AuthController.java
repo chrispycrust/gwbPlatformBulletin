@@ -17,7 +17,7 @@ public class AuthController {
         this.tokenService = tokenService;
     }
 
-    @PostMapping("auth/login")
+    @PostMapping("auth/login") // does this have to be auth.login?
     public String token(Authentication authentication) {
         LOG.debug("Token requested for user: '{}'", authentication.getName());
         String token = tokenService.generateToken(authentication);

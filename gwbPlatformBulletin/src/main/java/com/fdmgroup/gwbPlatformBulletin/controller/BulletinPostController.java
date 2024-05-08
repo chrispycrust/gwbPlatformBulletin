@@ -58,10 +58,29 @@ public class BulletinPostController {
     			.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found with id: " + postId));
     }
     
-    // get post by author id?
+//    // get post by author name
+//    @GetMapping("/{authorName}")
+//    public BulletinPost getPostByAuthorName(@PathVariable(value = "authorName") String authorName) {
+//    	return bulletinPostService.getPostByAuthor(authorName);
+//    			.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found"));
+//    }
+    
+    // get post by author id - accessible only to the specific user
+//    @GetMapping("/me/posts")
+//    public List<BulletinPost> getMyPosts(Authentication authentication) {
+//        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
+//        Integer authorId = userDetails.getId();  // Assuming your UserDetails implementation holds the ID
+//        return bulletinPostService.findPostsByAuthorId(authorId);
+//    }
+    
+//    @GetMapping("/allPosts/{memberId}")
+//    public List<BulletinPost> getMyPosts(@PathVariable(value = "id") Integer authorId) {
+//        return bulletinPostService.findPostsByAuthorId(authorId);
+//    }
+
     
 //    @GetMapping("/author/{authorSearch}")
-//    public List<BulletinPost> getPostByAuthor(@PathVariable(value = "authorSearch") String authorSearch) {
+//    public List<BulletinPost> getPostByAuthor(@RequestParam(value = "authorSearch") String authorSearch) {
 //    	
 //        return bulletinPostService.getPostByAuthor(authorSearch);
 //        

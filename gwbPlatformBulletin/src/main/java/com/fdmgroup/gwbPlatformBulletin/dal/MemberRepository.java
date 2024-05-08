@@ -18,12 +18,17 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 	
 	List<Member> findByFirstName(String name);
 	
+	Optional<Member> findByEmail(String username);
+	
 	@Query("SELECT m FROM Member m WHERE LOWER(CONCAT(m.honorific, ' ', m.firstName, ' ', m.lastName)) LIKE :searchTerm")
 	List<Member> findBySearchTerm(@Param("searchTerm") String searchTerm);
 	
 	@Query("SELECT COUNT(m) > 0 FROM Member m WHERE CONCAT(m.honorific, ' ', m.firstName, ' ', m.lastName) = LOWER(:fullName)")
     boolean existsByFullName(@Param("fullName") String fullName);
 
-	Optional<Member> findByEmail(String username);
+//	Optional<Member> findByName(String name);
+
+//	Optional<Member> findByName(String username);
+	// commenting this out makes spring happy
 
 }

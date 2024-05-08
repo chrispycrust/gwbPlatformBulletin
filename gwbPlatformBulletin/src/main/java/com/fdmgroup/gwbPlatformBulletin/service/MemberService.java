@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class MemberService {
 		this.encoder = encoder;
 	}
 
-	public void registerMember(Member member) throws ConflictException {
+	public void registerMember(Member member) {
 		
 		String fullName = member.getFullName().toLowerCase();
 		
@@ -51,9 +52,11 @@ public class MemberService {
 
     }
     
-    public Optional<Member> findMemberByEmail(String email) {
-    	return memberRepository.findByEmail(email);	
+    public Optional<Member> findMemberByEmail(String username) throws UsernameNotFoundException {
+    	return Optional.of(memberRepository.findByEmail(username)
+    			.orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + username)));
 	}
+
     
     public List<Member> findBySearch(String searchTerm) {
     	
@@ -84,7 +87,11 @@ public class MemberService {
     }
 
 	public void saveAll(List<Member> members) { // for committing dummy data
-		memberRepository.saveAll(members);
+		// iterate through member
+		for (Member member : members ) {
+			registerMember(member);
+			
+		}
 	}
 	
 }

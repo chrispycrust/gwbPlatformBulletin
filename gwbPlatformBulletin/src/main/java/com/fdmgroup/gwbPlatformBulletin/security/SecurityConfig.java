@@ -3,7 +3,7 @@ package com.fdmgroup.gwbPlatformBulletin.security;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+//import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -73,8 +73,9 @@ public class SecurityConfig {
         			.requestMatchers("/adminonly").hasAuthority("SCOPE_ADMIN")
         			.requestMatchers("/wall").permitAll() // i have extra public page not specified in backend not sure if i have to put it here
         			.requestMatchers("/auth/login").permitAll()
-        			.requestMatchers("/member/register").permitAll()       			
-        			.anyRequest().authenticated()	// Default is to log in (authenticated). Can change to permitAll to let anyone have access
+        			.requestMatchers("/member/register").permitAll()     
+        			.anyRequest().permitAll()
+//        			.anyRequest().authenticated()	// Default is to log in (authenticated). Can change to permitAll to let anyone have access
         	)
 //        	.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)  //The old syntax
         	.oauth2ResourceServer(server->server.jwt(Customizer.withDefaults()))

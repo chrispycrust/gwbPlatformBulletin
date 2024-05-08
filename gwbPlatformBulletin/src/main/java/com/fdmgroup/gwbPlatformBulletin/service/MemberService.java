@@ -84,7 +84,10 @@ public class MemberService {
     }
 
 	public void saveAll(List<Member> members) { // for committing dummy data
-		memberRepository.saveAll(members);
+		// iterate through member
+		for (Member member : members ) {
+			registerMember(member);
+		}
 	}
 	
 }

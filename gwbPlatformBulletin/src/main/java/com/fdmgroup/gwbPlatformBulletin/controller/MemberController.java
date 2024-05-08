@@ -44,6 +44,19 @@ public class MemberController {
         return memberService.getAllMembers();
     }
     
+    /**
+     * To help confirm Spring Security is recognising member email as username 
+     * i.e. can we retrieve member by email?
+     * 
+     * @param email
+     * @return member object
+     */
+    @GetMapping ("/email/{email}")
+	public Member getEmail(@PathVariable(value = "email") String email) {
+		return memberService.findMemberByEmail(email)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found"));
+	}
+    
     @GetMapping("/{id}")
     public Member getMemberById(@PathVariable(value = "id") Integer memberId) {
         return memberService.getMemberById(memberId)

@@ -74,8 +74,8 @@ public class SecurityConfig {
         			.requestMatchers("/wall").permitAll() // i have extra public page not specified in backend not sure if i have to put it here
         			.requestMatchers("/auth/login").permitAll()
         			.requestMatchers("/member/register").permitAll()     
-        			.anyRequest().permitAll()
-//        			.anyRequest().authenticated()	// Default is to log in (authenticated). Can change to permitAll to let anyone have access
+//        			.anyRequest().permitAll()
+        			.anyRequest().authenticated()	// Default is to log in (authenticated). Can change to permitAll to let anyone have access
         	)
 //        	.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)  //The old syntax
         	.oauth2ResourceServer(server->server.jwt(Customizer.withDefaults()))

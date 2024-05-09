@@ -91,6 +91,11 @@ public class BulletinPost {
 		}
     }
 	
+	@JsonProperty("authorEmail")
+    public String getAuthorEmail() {
+        return this.author.getEmail();
+    }
+	
 	public Integer getId() {
 		return id;
 	}

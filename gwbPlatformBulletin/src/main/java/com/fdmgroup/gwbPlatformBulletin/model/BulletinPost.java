@@ -1,6 +1,7 @@
 package com.fdmgroup.gwbPlatformBulletin.model;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -142,5 +143,6 @@ public class BulletinPost {
 	public String toString() {
 		return "BulletinPost [id=" + id + ", author=" + author + ", title=" + title + ", content=" + content + "]";
 	}
+
 
 }

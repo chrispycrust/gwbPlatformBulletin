@@ -93,7 +93,7 @@ public class Runner implements ApplicationRunner {
 				
 				"Welcome!", 
 				
-				"Attention all Lady Bosses! Welcome to Maidens of Influence, a community where we forge strong connections with kindred spirits.\n"
+				"Attention all luminaries! Welcome to the Lounge - a community where we forge strong connections with kindred spirits.\n"
 				+ "\n"
 				+ "Our aim is to establish a sisterhood of women who aspire to lead lives of significance, regardless of its manifestation (or whether you are acquainted with such manifestation!), and to foster serendipitous collaboration and mutual learning. We are a diverse assembly of individuals encompassing various lifestyles, vocations, cultures, and ages, advocating for nonconformity and genuineness. This realm is a haven for us to frolic, experiment with ideas, and uphold one another sans reproach. We revel in merriment and enlightenment whilst cultivating meaningful connections in both life and commerce.\n"
 				+ "\n"

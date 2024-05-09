@@ -61,7 +61,7 @@ public class BulletinPostService {
                 throw new ValidationException("Title cannot be empty");
             }
         } catch (Exception e) {
-            throw new ValidationException("Cannot process title: " + e.getMessage());
+            throw new ValidationException(e.getMessage());
             
         }
 
@@ -70,7 +70,16 @@ public class BulletinPostService {
                 throw new ValidationException("Content cannot be empty");
             }
         } catch (Exception e) {
-            throw new ValidationException("Cannot process content: " + e.getMessage());
+            throw new ValidationException(e.getMessage());
+            
+        }
+        
+        try {
+            if (post.getAuthor() == null) {
+                throw new ValidationException("Post must have author");
+            }
+        } catch (Exception e) {
+            throw new ValidationException(e.getMessage());
             
         }
     }
@@ -82,6 +91,15 @@ public class BulletinPostService {
     public Optional<BulletinPost> getPostById(int postId) {
         return bulletinRepository.findById(postId);
     }
+    
+//    public List<BulletinPost> findByAuthorId(Integer authorId) {
+//		return bulletinRepository.findByAuthorId(authorId);
+//	}
+    
+    public List<BulletinPost> findByAuthorId(Integer authorId) {
+		return bulletinRepository.findByAuthorId(authorId, Sort.by(Sort.Direction.DESC, "datePublished"));
+	}
+    
     
     /**
 	 * Allows users to make a search of all posts if it matches author name, post title or anything in the post content
@@ -130,10 +148,6 @@ public class BulletinPostService {
     @Transactional
 	public void saveAll(List<BulletinPost> bulletinBoard) {
 		bulletinRepository.saveAll(bulletinBoard);
-	}
-
-	public List<BulletinPost> findByAuthorId(Integer authorId) {
-		return bulletinRepository.findByAuthorId(authorId);
 	}
 	
 }

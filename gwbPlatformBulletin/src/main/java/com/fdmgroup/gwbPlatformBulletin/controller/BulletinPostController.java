@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,10 @@ import com.fdmgroup.gwbPlatformBulletin.exceptions.NonexistentPostException;
 import com.fdmgroup.gwbPlatformBulletin.exceptions.ValidationException;
 import com.fdmgroup.gwbPlatformBulletin.model.BulletinPost;
 import com.fdmgroup.gwbPlatformBulletin.service.BulletinPostService;
+import com.fdmgroup.gwbPlatformBulletin.service.MemberService;
 import com.fdmgroup.gwbPlatformBulletin.utils.BulletinPostDTO;
+
+import com.fdmgroup.gwbPlatformBulletin.model.Member;
 
 import jakarta.validation.Valid;
 
@@ -27,9 +31,18 @@ import jakarta.validation.Valid;
 @RequestMapping("/bulletinBoard")
 public class BulletinPostController {
 	
-	@Autowired
     private BulletinPostService bulletinPostService;
 	
+	private MemberService memberService;
+	
+	@Autowired
+	public BulletinPostController(BulletinPostService bulletinPostService, MemberService memberService) {
+		super();
+		this.bulletinPostService = bulletinPostService;
+		this.memberService = memberService;
+	}
+
+
 	/**
 	 * @Valid ensures posts are validated according to constraints in BulletinPost
 	 * 
@@ -37,8 +50,19 @@ public class BulletinPostController {
 	 * @return BulletinPost
 	 */
 	@PostMapping
-    public BulletinPost createPost(@Valid @RequestBody BulletinPost post) {
+    public BulletinPost createPost(@Valid @RequestBody BulletinPost post, Authentication authentication) {
 		try {
+			
+			String username = authentication.getName(); 
+			Optional<Member> optionalMember = memberService.findMemberByEmail(username);
+	        if (!optionalMember.isPresent()) {
+	            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found");
+	        }
+	        
+
+	        Member member = optionalMember.get();
+			post.setAuthor(member);
+			
             return bulletinPostService.createPost(post);
             
         } catch (ValidationException e) {

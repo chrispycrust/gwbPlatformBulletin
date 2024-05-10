@@ -70,6 +70,7 @@ public class MemberController {
 
     @PutMapping("/{id}")
     public void updateMember(@PathVariable Integer id, @Valid @RequestBody Member member) {
+    	System.out.println("Member object details:" + member);
     	member.setId(id); // matches the id specified at the endpoint, ensures we're updating the right entity
     	memberService.updateMember(member);
     }

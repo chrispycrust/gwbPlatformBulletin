@@ -1,29 +1,42 @@
 package com.fdmgroup.gwbPlatformBulletin.service;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import com.fdmgroup.gwbPlatformBulletin.exceptions.AuthorizationException;
+import com.fdmgroup.gwbPlatformBulletin.controller.MemberController;
 import com.fdmgroup.gwbPlatformBulletin.dal.BulletinPostRepository;
-import com.fdmgroup.gwbPlatformBulletin.dal.MemberRepository;
 import com.fdmgroup.gwbPlatformBulletin.exceptions.NonexistentPostException;
 import com.fdmgroup.gwbPlatformBulletin.exceptions.ValidationException;
 import com.fdmgroup.gwbPlatformBulletin.model.BulletinPost;
 import com.fdmgroup.gwbPlatformBulletin.model.Member;
-
+import com.fdmgroup.gwbPlatformBulletin.dal.MemberRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 
 @Service
 public class BulletinPostService {
 	
+	
+	private static final Logger logger = LoggerFactory.getLogger(BulletinPostService.class);
+	
 	@Autowired
     private BulletinPostRepository bulletinRepository;
 	private PasswordEncoder encoder;
+	private MemberService memberService;
+	private MemberController memberController;
 
 	public BulletinPostService(BulletinPostRepository bulletinRepository, PasswordEncoder encoder) {
 		super();
@@ -43,7 +56,6 @@ public class BulletinPostService {
 		
 		try { 
 			validatePost(post);
-			post.setDatePublished(LocalDateTime.now());
 			return bulletinRepository.save(post);
 			
 		} catch (ValidationException ve) {
@@ -87,6 +99,10 @@ public class BulletinPostService {
 	public List<BulletinPost> getAllPosts() {
         return bulletinRepository.findAll(Sort.by(Sort.Direction.DESC, "datePublished"));
     }
+	
+	public boolean existsById(int postId) {
+        return bulletinRepository.existsById(postId);
+    }
 
     public Optional<BulletinPost> getPostById(int postId) {
         return bulletinRepository.findById(postId);
@@ -116,21 +132,7 @@ public class BulletinPostService {
 //
 //	}
 
-    @Transactional
-    public void updatePost(Integer id, BulletinPost post) throws NonexistentPostException {
-    	
-    	post.setId(id);
-    	
-    	if (bulletinRepository.existsById(id)) {
-    		bulletinRepository.save(post);
-			
-		} else {
-			throw new NonexistentPostException("Post with ID " + id + " could not be found");
-			
-		}
 
-    }
-    
     @Transactional
     public boolean deleteById(Integer postId) {
     	
@@ -148,6 +150,69 @@ public class BulletinPostService {
     @Transactional
 	public void saveAll(List<BulletinPost> bulletinBoard) {
 		bulletinRepository.saveAll(bulletinBoard);
+	}
+    
+//    @Transactional
+//	public void updatePost(Integer id, String authorEmail, String updatedTitle, String updatedContent,
+//			Authentication authentication) throws NonexistentPostException, AuthorizationException {
+//    	
+//		BulletinPost existingPost = bulletinRepository.findById(id)
+//    			.orElseThrow(() -> new NonexistentPostException("Post with ID " + id + " could not be found"));
+//		
+////		String authenticatedUsername = authentication.getName(); 
+////		
+////        if (!authorEmail.equals(authenticatedUsername)) {
+////        	throw new AuthorizationException("You do not have permission to edit this post");
+////        }
+//		
+//		if (!existingPost.getAuthor().getEmail().equals(authentication.getName())) {
+//	        throw new AuthorizationException("You do not have permission to edit this post");
+//	    }
+//    	
+//
+////    	if (!existingPost.getAuthor().getEmail().equals(authorEmail)) {
+////            
+////        }
+//    	
+////    	Member member = memberService.findMemberByEmail(authorEmail);
+////    	Member member = memberController.getEmail(authorEmail);
+////    	
+////    	existingPost.setAuthor(member);
+//        existingPost.setTitle(updatedTitle);
+//	    existingPost.setContent(updatedContent);
+//    	
+//		validatePost(existingPost);
+//		
+//		System.out.println(existingPost);
+//		
+//		bulletinRepository.save(existingPost); 
+//		
+//	}
+    
+    @Transactional
+	public void updatePost(Integer id, @Valid BulletinPost post, Authentication authentication) throws NonexistentPostException, AuthorizationException {
+		
+    	post.setId(id);
+
+    	if (bulletinRepository.existsById(id)) {
+    		
+    		BulletinPost existingPost = bulletinRepository.findById(id)
+    				.orElseThrow(() -> new NonexistentPostException("Post with ID " + id + " could not be found"));
+    		
+    		if (!existingPost.getAuthor().getEmail().equals(authentication.getName())) {
+    		    throw new AuthorizationException("You do not have permission to edit this post");
+    		}
+    		
+    		System.out.println("POST AT SERVICE LAYER:" + post);
+    		
+    		validatePost(post);
+    		bulletinRepository.save(post);
+    		
+		} else {
+			throw new NonexistentPostException("Post with ID " + id + " could not be found");
+			
+		}
+		
 	}
 	
 }

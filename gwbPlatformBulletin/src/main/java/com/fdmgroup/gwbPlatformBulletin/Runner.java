@@ -62,7 +62,7 @@ public class Runner implements ApplicationRunner {
 		members.add(new Member("Miss", "Eilish", "Jackson", "eilishJackson@email.com", "eilishJackson123", new ArrayList<>()));
 		members.add(new Member("Ms", "Vanessa", "A", "itsMeVanessa@email.com", "vanessaA123", new ArrayList<>()));
 		members.add(new Member("Her Majesty", "Charlotte", "of Mecklenburg-Strelitz", "queenBee@royalmail.com", "CrownJewels1772", new ArrayList<>()));
-		members.add(new Member("Dowager", "Agatha", "Danbury", "societySpy@tonmail.com", "GossipGuru1811", new ArrayList<>()));
+		members.add(new Member("Dowager", "Agatha", "Danbury", "ladyDanbury@tonTimes.com", "PheasantsandSpices1811", new ArrayList<>()));
 		members.add(new Member("Lady", "", "Whistledown", "secretScribe@tonTimes.com", "InkAndIntrigue1799", new ArrayList<>()));
 		members.add(new Member("Dowager Viscountess", "Violet", "Bridgerton", "matriarchMatch@bridgerton.biz", "FamilyFirst1803", new ArrayList<>()));
 		members.add(new Member("Duchess", "Daphne", "Basset", "duchessD@bridgerton.biz", "TrueLove1813", new ArrayList<>()));
@@ -80,6 +80,7 @@ public class Runner implements ApplicationRunner {
 		members.add(new Member("Miss", "Rose", "Nolan", "roseGarden@nolanNurture.com", "BloomingBelle1804", new ArrayList<>()));
 		members.add(new Member("Mrs", "", "Varley", "vivaciousVarley@varleyVentures.com", "VarleyVigilant1801", new ArrayList<>()));
 		members.add(new Member("Mrs", "", "Wilson", "wiseWilson@wilsonWit.com", "WittyWisdom1798", new ArrayList<>()));
+		members.add(new Member("Miss", "Prudence", "Featherington", "prudenceF@feathernet.com", "WittyWisdom1798", new ArrayList<>()));
 		
 		memberService.saveAll(members);
 		
@@ -136,18 +137,34 @@ public class Runner implements ApplicationRunner {
 
 		bulletinBoard.add(new BulletinPost(members.get(7), 
 				
-				"Embrace Your Independence: A Call to Enlightened Minds", 
+				"The Subtle Art of Flower Arranging", 
 				
-				"Dear Readers,\n"
+				"Dear Esteemed Members,\n"
 				+ "\n"
-				+ "Are you tired of the stifling expectations of high society? Do you long for intellectual stimulation beyond the confines of corsets and formal balls? Join me, Eloise Bridgerton, in breaking free from the shackles of tradition and exploring the world of knowledge and empowerment.\n"
+				+ "Today, I find myself contemplating the seemingly simple act of arranging flowers—a task that, upon closer inspection, reveals layers of complexity akin to the very nature of our own journeys toward personal growth and enlightenment.\n"
 				+ "\n"
-				+ "Let us gather together to discuss literature, politics, and the pursuit of our own ambitions. Whether you seek enlightenment through books or wish to engage in lively debates on matters of importance, this is the place for you. Let's challenge the status quo and forge our own paths to fulfillment.\n"
+				+ "Consider, if you will, the delicate process of selecting each bloom. Not unlike our own choices in education and associations, each flower adds a unique value to the composition, suggesting that diversity in knowledge and company enhances the beauty and effectiveness of our collective endeavors. How crucial it is, then, to choose with care and purpose, ensuring a well-rounded and vibrant bouquet—much like a well-rounded character.\n"
 				+ "\n"
-				+ "With determination and independence,\n"
-				+ "Eloise Bridgerton"
+				+ "Furthermore, the structure of our arrangements can mirror the organization of our lives. A strong foundation allows for the most exquisite and ambitious designs to take form without the fear of collapse. In this metaphor, one might see the importance of a solid educational grounding, supporting the flourishing of ambitious personal and professional goals.\n"
+				+ "\n"
+				+ "Let us discuss, then, how the principles of art and nature might guide our decisions and aspirations. Have you found other everyday activities that resonate with deeper truths about our paths and pursuits? I look forward to your reflections and insights, as we continue to arrange our lives with the same care and strategic thought as our most cherished bouquets.\n"
+				+ "\n"
+				+ "Yours in thoughtful contemplation,"
 				));
 		
+		bulletinBoard.add(new BulletinPost(members.get(16), 
+				
+				"Unveiling the Latest in High Fashion", 
+				
+				"Dear Esteemed Patrons and Fashion Aficionados,\n"
+				+ "\n"
+				+ "I am thrilled to announce the launch of my latest collection, \"Regency Reimagined,\" inspired by the elegance of the past and designed for the modern woman. Each piece blends timeless grace with contemporary boldness, ensuring that every wearer feels both classic and on the cutting edge.\n"
+				+ "\n"
+				+ "For a personal viewing and bespoke fitting, I invite you to visit my atelier. Book your appointment through this platform and be the first to don the trends of tomorrow, today. Indulge in the luxury of custom couture that speaks to both your style and stature.\n"
+				+ "\n"
+				+ "Embrace your unique elegance,"
+				));
+				
 		bulletinBoard.add(new BulletinPost(members.get(20), 
 				
 				"Greetings, esteemed members of the ton", 
@@ -160,40 +177,93 @@ public class Runner implements ApplicationRunner {
 				+ "Wilson, Housekeeper for the Esteemed Bridgertons"
 				));
 		
-		bulletinBoard.add(new BulletinPost(members.get(4), 
+		bulletinBoard.add(new BulletinPost(members.get(5), 
 				
-				"Rise, Resilient Roses: A Call to Female Fortitude", 
+				"A Gentle Invitation to New Beginnings\n",
 				
-				"My dearest readers,\n"
+				"Dear Esteemed Friends,"
+				+ "As seasons change and gardens begin to bloom anew, I find myself reflecting on the natural cycles of renewal and rebirth. Just as a garden left dormant through the winter revives with the warmth of spring, so too can our hearts find new life after seasons of solitude and reflection.\n"
 				+ "\n"
-				+ "In a world where expectations seek to confine and norms endeavor to define, it is the resilience of women that shines brightest. We are the architects of our destinies, the champions of our dreams, and the authors of our own narratives.\n"
+				+ "To those who have walked a similar path of loss and remembrance, perhaps you too have felt the first stirrings of renewal within your spirit—a desire to once again embrace the joys that companionship can bring. It is with this thought in mind that I propose a discreet gathering, one that we might whimsically call the “Society of Reviving Hearts.”\n"
 				+ "\n"
-				+ "Let us cast aside the shackles of societal constraints and embrace the boundless potential that lies within each of us. Let us celebrate our victories, no matter how small, and draw strength from the challenges that seek to test our resolve.\n"
+				+ "This would be a place for us to share, in hushed tones and with the utmost respect for our pasts, how we might cultivate our emotional landscapes to once again flourish. Whether through quiet conversations, shared readings, or simply enjoying the presence of understanding company, let us explore together how the heart, much like our beloved gardens, might bloom once more with the gentle care of time and attention.\n"
 				+ "\n"
-				+ "For it is in adversity that our true power is revealed, and it is through unity that our voices echo loudest. Together, we stand as an indomitable force, shaping the world in our image and paving the way for generations yet to come.\n"
+				+ "If you feel a whisper of readiness to explore the possibility of spring after a long winter, do reach out. Let us walk together with gentle steps towards perhaps, a brighter season.\n"
 				+ "\n"
-				+ "So, my fellow roses, let us bloom boldly and unapologetically, for it is in our collective brilliance that we find our greatest strength.\n"
-				+ "\n"
-				+ "Yours in solidarity and sisterhood,\n"
-				+ "Lady Whistledown"
+				+ "Yours in hope and healing,\n"
 				));
 		
-		bulletinBoard.add(new BulletinPost(members.get(3), 
+		bulletinBoard.add(new BulletinPost(members.get(6), 
 				
-				"Musings of a Matriarch", 
+				"The Joys and Challenges of Motherhood", 
 				
-				"Ah, my dear readers,\n"
+				"Dear Fellow Mothers and Caregivers,\n"
 				+ "\n"
-				+ "It seems the young debutantes of our day are more preoccupied with the latest scandal than with matters of substance. Oh, to see them flit about like butterflies, unaware of the weighty responsibilities that await them beyond the ballroom's gilded walls.\n"
+				+ "As I navigate the rewarding yet demanding journey of motherhood, I find myself continually learning and growing alongside my children. Motherhood has brought with it an abundance of joy, moments of self-doubt, and invaluable lessons about love and patience.\n"
 				+ "\n"
-				+ "And let us not forget the matchmaking mamas, whose fervent attempts to secure advantageous alliances rival even the most ardent suitor's pursuit. Truly, the lengths to which some will go in the name of marital machinations would make even the most seasoned strategist blush.\n"
+				+ "Balancing the duties of a duchess and a mother can often seem like a daunting task, but it is one that has taught me more about myself and my strengths than I could have ever imagined. It has deepened my empathy, honed my multitasking skills, and reshaped my priorities to ensure that while I am fully present in my professional duties, I am first and foremost there for my family.\n"
 				+ "\n"
-				+ "But amidst the folly and frivolity, there are glimmers of hope—bright, shining beacons of intelligence, wit, and independence. To these steadfast souls, I raise my glass and offer a nod of admiration, for they are the true architects of our future.\n"
+				+ "I would love to hear from other mothers about how you manage the delicate balance between your personal aspirations and the demands of parenthood. What strategies have you found effective? How has motherhood impacted your personal and professional growth?\n"
 				+ "\n"
-				+ "So, my dear readers, let us not be swayed by the trappings of society's expectations. Instead, let us forge our own path, guided by wisdom, grace, and a healthy dose of irreverence.\n"
+				+ "With warmest regards and heartfelt empathy,\n"
+				));
+		
+		bulletinBoard.add(new BulletinPost(members.get(7), 
+				
+				"A Call to Arms: Petals and Stems", 
+				
+				"Dear Conspirators of the Garden,\n"
 				+ "\n"
-				+ "Yours in wry observation,\n"
-				+ "Lady Danbury"
+				+ "Are you, like me, growing weary of the typical chatter about roses and daisies? Do you find that discussing petals and stems could be a revolutionary act, if only we dared to dig a little deeper? Let's turn our seemingly innocent hobby into a battlefield for the mind.\n"
+				+ "\n"
+				+ "I propose we form a clandestine collective—\"League of Extraordinary Gardeners.\" This will be no ordinary gathering to debate the merits of sun vs. shade. No, we shall use our discussions as a cover to challenge the entrenched norms hidden behind each perfect arrangement. Our tools? Nothing more dangerous than trowels and wit.\n"
+				+ "\n"
+				+ "If you've ever smirked at the idea of using a discussion on fertilizer to subtly uproot societal conventions, or if you’ve imagined strategizing over plant formations as if plotting a quiet coup against the age-old structures of our realm, then you, my friend, belong with us.\n"
+				+ "\n"
+				+ "Send a discreet sign of your interest—perhaps suggest an unusual plant for our next innocent gathering. Let us cultivate not just flowers, but the seeds of change, sowing ideas as we prune the outdated.\n"
+				+ "\n"
+				+ "Yours in mischief and (garden) variety,"
+				));
+		
+		bulletinBoard.add(new BulletinPost(members.get(16), 
+				
+				"Masterclass in Textile Artistry", 
+				
+				"To All Aspiring Designers and Fabric Enthusiasts,\n"
+				+ "\n"
+				+ "Join me for a captivating masterclass where I will unveil the secrets of textile selection and the art of dressmaking that have defined my career. This workshop is designed for those who wish to refine their craft and elevate their design skills to the highest echelons of haute couture.\n"
+				+ "\n"
+				+ "Spaces are limited, as I aim to provide personalized guidance. Register through this platform to secure your place in what promises to be a transformative educational experience.\n"
+				+ "\n"
+				+ "Discover the artistry behind the fashion,"
+				));
+		
+		bulletinBoard.add(new BulletinPost(members.get(21), 
+				
+				"Delighted to Share My Recent Accomplishments", 
+				
+				"Dear Friends and Esteemed Acquaintances,\n"
+				+ "\n"
+				+ "I am thrilled to share with you some exciting news about my recent endeavors, which have been both challenging and incredibly rewarding. I had the distinct pleasure of organizing the annual Spring Charity Gala last month, an event that was not only a resounding success but also raised significant funds for a cause close to our hearts.\n"
+				+ "\n"
+				+ "The gala was attended by notable figures from various sectors, and I was honored to receive commendations for my role in ensuring the evening was both enchanting and effective. It was a wonderful opportunity to blend social engagement with meaningful impact, and I am eager to explore further avenues where I can contribute my organizational skills and passion for the finer things in life.\n"
+				+ "\n"
+				+ "Please feel free to reach out if you wish to discuss potential collaborations or if you're curious about the behind-the-scenes magic that goes into organizing such splendid events!\n"
+				+ "\n"
+				+ "Yours with refined anticipation,"
+				));
+		
+		bulletinBoard.add(new BulletinPost(members.get(16), 
+				
+				"Exclusive Offer for First-Time Clients", 
+				
+				"Greetings to All Modern Connoisseurs of Style,\n"
+				+ "\n"
+				+ "For those yet to experience the magic of bespoke tailoring, I extend a warm invitation to explore your fashion fantasies with an exclusive offer: 20% off your first custom creation. Let us embark on a journey of transformation together, where your desires are woven into every thread of your garment.\n"
+				+ "\n"
+				+ "Seize this opportunity to enhance your wardrobe with attire that is crafted just for you. Schedule your consultation today, and step into a world where fashion meets personal expression.\n"
+				+ "\n"
+				+ "Your couture adventure awaits,"
 				));
 		
 		bulletinService.saveAll(bulletinBoard);

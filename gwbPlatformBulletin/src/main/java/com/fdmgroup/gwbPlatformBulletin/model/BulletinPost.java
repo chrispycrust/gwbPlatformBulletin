@@ -146,8 +146,11 @@ public class BulletinPost {
 
 	@Override
 	public String toString() {
-		return "BulletinPost [id=" + id + ", author=" + author + ", title=" + title + ", content=" + content + "]";
+		return "BulletinPost [id=" + id + ", author=" + author + ", title=" + title + ", content=" + content
+				+ ", datePublished=" + datePublished + "]";
 	}
+	
+	
 
 
 }

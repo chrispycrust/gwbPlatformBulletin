@@ -53,6 +53,7 @@ public class BulletinPostService {
 		
 		try { 
 			validatePost(post);
+			System.out.println("NEW POST ADDED:" + post);
 			return bulletinRepository.save(post);
 			
 		} catch (ValidationException ve) {

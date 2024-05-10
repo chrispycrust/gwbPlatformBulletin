@@ -30,6 +30,7 @@ public class MemberController {
 	
 	@PostMapping("/register")
     public void registerMember(@Valid @RequestBody Member member) throws ConflictException {
+		System.out.println(member);
         memberService.registerMember(member);
     }
     

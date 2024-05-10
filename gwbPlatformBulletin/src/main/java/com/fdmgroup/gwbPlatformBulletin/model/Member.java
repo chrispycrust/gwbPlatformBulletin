@@ -37,10 +37,10 @@ public class Member {
 //	@Enumerated(EnumType.STRING)
 //    private Honorific honorific;
 	
-	@NotBlank(message = "First name cannot be blank")
+//	@NotBlank(message = "First name cannot be blank")
 	private String firstName;
 	
-	@NotBlank(message = "Last name cannot be blank")
+//	@NotBlank(message = "Last name cannot be blank")
 	private String lastName;
 	
 	@NotBlank(message = "Email cannot be blank")
@@ -57,8 +57,7 @@ public class Member {
 		super();
 	}
 	
-	public Member(String honorific, @NotBlank(message = "First name cannot be blank") String firstName,
-			@NotBlank(message = "Last name cannot be blank") String lastName,
+	public Member(String honorific, String firstName, String lastName,
 			@NotBlank(message = "Email cannot be blank") String email,
 			@NotBlank(message = "Password cannot be blank") String password,
 			List<BulletinPost> postHistory

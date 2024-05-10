@@ -8,8 +8,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.fdmgroup.gwbPlatformBulletin.exceptions.ConflictException;
-
+import com.fdmgroup.gwbPlatformBulletin.exceptions.ValidationException;
 import com.fdmgroup.gwbPlatformBulletin.dal.MemberRepository;
+import com.fdmgroup.gwbPlatformBulletin.model.BulletinPost;
 import com.fdmgroup.gwbPlatformBulletin.model.Member;
 
 @Service
@@ -29,6 +30,8 @@ public class MemberService {
 		
 		String fullName = member.getFullName().toLowerCase();
 		
+		System.out.println(member);
+		
 		if ( memberRepository.existsByFullName(fullName) ) {
 			throw new ConflictException("Member with name " + fullName + " already exists");
 			
@@ -36,10 +39,53 @@ public class MemberService {
 			// Password encoding
 			String encodedPassword = encoder.encode(member.getPassword());
 			member.setPassword(encodedPassword);
+			
+			validateMember(member);
+			
 			memberRepository.save(member);
+			
 			System.out.println("NEW USER ADDED:" + fullName);
 			
 		}	
+    }
+	
+	private void validateMember(Member member) throws ValidationException {
+    	
+//    	try {
+//            if (member.getFirstName().equals("") || member.getFirstName().trim().equals("")) {
+//                throw new ValidationException("First name cannot be empty");
+//            }
+//        } catch (Exception e) {
+//            throw new ValidationException(e.getMessage());
+//            
+//        }
+//
+//        try {
+//            if (member.getLastName().equals("") || member.getLastName().trim().equals("")) {
+//                throw new ValidationException("Last Name cannot be empty");
+//            }
+//        } catch (Exception e) {
+//            throw new ValidationException(e.getMessage());
+//            
+//        }
+        
+        try {
+            if (member.getEmail().equals("") || member.getEmail().trim().equals("")) {
+                throw new ValidationException("Email cannot be empty");
+            }
+        } catch (Exception e) {
+            throw new ValidationException(e.getMessage());
+            
+        }
+        
+        try {
+            if (member.getPassword().equals("") || member.getPassword().trim().equals("")) {
+                throw new ValidationException("Password cannot be empty");
+            }
+        } catch (Exception e) {
+            throw new ValidationException(e.getMessage());
+            
+        }
     }
 
     public List<Member> getAllMembers() {
@@ -64,7 +110,9 @@ public class MemberService {
 	}
 
     public void updateMember(Member updatedMember) {
-    
+    	
+    	validateMember(updatedMember);
+    	
     	memberRepository.save(updatedMember);
     	
 	}

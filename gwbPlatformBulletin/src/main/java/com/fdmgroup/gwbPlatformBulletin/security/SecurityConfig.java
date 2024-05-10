@@ -73,7 +73,7 @@ public class SecurityConfig {
         			.requestMatchers("/adminonly").hasAuthority("SCOPE_ADMIN")
         			.requestMatchers("/wall").permitAll() // i have extra public page not specified in backend not sure if i have to put it here
         			.requestMatchers("/auth/login").permitAll()
-        			.requestMatchers("/member/register").permitAll()     
+        			.requestMatchers("/members/register").permitAll()     
 //        			.anyRequest().permitAll()
         			.anyRequest().authenticated()	// Default is to log in (authenticated). Can change to permitAll to let anyone have access
         	)

@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.token.TokenService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -25,7 +23,6 @@ import com.fdmgroup.gwbPlatformBulletin.exceptions.ValidationException;
 import com.fdmgroup.gwbPlatformBulletin.model.BulletinPost;
 import com.fdmgroup.gwbPlatformBulletin.service.BulletinPostService;
 import com.fdmgroup.gwbPlatformBulletin.service.MemberService;
-import com.fdmgroup.gwbPlatformBulletin.utils.BulletinPostDTO;
 
 import com.fdmgroup.gwbPlatformBulletin.model.Member;
 
@@ -39,7 +36,7 @@ public class BulletinPostController {
 	
 	private MemberService memberService;
 	
-	private TokenService tokenService;
+//	private TokenService tokenService;
 	
 	
 	@Autowired
@@ -47,6 +44,7 @@ public class BulletinPostController {
 		super();
 		this.bulletinPostService = bulletinPostService;
 		this.memberService = memberService;
+//		this.tokenService = tokenService;
 	}
 
 
@@ -58,6 +56,7 @@ public class BulletinPostController {
 	 */
 	@PostMapping
     public BulletinPost createPost(@Valid @RequestBody BulletinPost post, Authentication authentication) {
+		
 		try {
 			
 			String username = authentication.getName(); 
@@ -117,8 +116,22 @@ public class BulletinPostController {
     @PutMapping("/{id}")
     public void updatePost(@PathVariable Integer id, @Valid @RequestBody BulletinPost updatedPost, Authentication authentication) throws NonexistentPostException, AuthorizationException {
     	
-    	System.out.println(updatedPost);
+//    	System.out.println(bearer);
+// get post by id 
+    	// setTitle, setContent
+    	
+    	bulletinPostService.getPostById(id);
+    	
     	bulletinPostService.updatePost(id, updatedPost, authentication);
+    	
+//		String token = bearer.substring(7);
+//		String username = tokenService.getSubject(token).orElseThrow(() -> new NotFoundException("Subject of jwt not found")) ;
+//		Member member = memberService.findMemberByEmail(username).orElseThrow(() -> new NotFoundException("Member with username '%s' not found".formatted(username)));
+//		
+////		bulletinPostService.createPost(post);
+//		
+//		BulletinPost bulletinPost = new BulletinPost(member, String title, String content);
+		
     }
     
     

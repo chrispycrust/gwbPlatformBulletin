@@ -2,14 +2,17 @@ package com.fdmgroup.gwbPlatformBulletin.security;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
+import org.springframework.security.oauth2.jwt.JwtValidationException;
 import org.springframework.stereotype.Service;
 
 import com.fdmgroup.gwbPlatformBulletin.dal.MemberRepository;
@@ -19,12 +22,12 @@ public class TokenService {
 
     private final JwtEncoder encoder;
     private final MemberRepository memberRepository;
-    JwtEncoder decoder;
+    JwtDecoder decoder;
     
-
-    
-    public TokenService(JwtEncoder encoder, JwtEncoder decoder, MemberRepository memberRepository) {
+    public TokenService(JwtEncoder encoder, JwtDecoder decoder, MemberRepository memberRepository) {
         this.encoder = encoder;
+        this.decoder = decoder;
+		this.memberRepository = memberRepository;
     }
 
     public String generateToken(Authentication authentication) {

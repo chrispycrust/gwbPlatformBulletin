@@ -114,24 +114,13 @@ public class BulletinPostController {
 //    }
     
     @PutMapping("/{id}")
-    public void updatePost(@PathVariable Integer id, @Valid @RequestBody BulletinPost updatedPost, Authentication authentication) throws NonexistentPostException, AuthorizationException {
-    	
-//    	System.out.println(bearer);
-// get post by id 
-    	// setTitle, setContent
+    public void updatePost(@PathVariable Integer id, @Valid @RequestBody BulletinPost updatedPost, Authentication authentication) 
+    		throws NonexistentPostException, AuthorizationException {
     	
     	bulletinPostService.getPostById(id);
     	
     	bulletinPostService.updatePost(id, updatedPost, authentication);
-    	
-//		String token = bearer.substring(7);
-//		String username = tokenService.getSubject(token).orElseThrow(() -> new NotFoundException("Subject of jwt not found")) ;
-//		Member member = memberService.findMemberByEmail(username).orElseThrow(() -> new NotFoundException("Member with username '%s' not found".formatted(username)));
-//		
-////		bulletinPostService.createPost(post);
-//		
-//		BulletinPost bulletinPost = new BulletinPost(member, String title, String content);
-		
+
     }
     
     

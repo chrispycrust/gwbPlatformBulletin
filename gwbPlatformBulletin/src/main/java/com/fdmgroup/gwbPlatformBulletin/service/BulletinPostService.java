@@ -1,7 +1,5 @@
 package com.fdmgroup.gwbPlatformBulletin.service;
 
-import java.security.Principal;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -106,10 +104,6 @@ public class BulletinPostService {
         return bulletinRepository.findById(postId);
     }
     
-//    public List<BulletinPost> findByAuthorId(Integer authorId) {
-//		return bulletinRepository.findByAuthorId(authorId);
-//	}
-    
     public List<BulletinPost> findByAuthorId(Integer authorId) {
 		return bulletinRepository.findByAuthorId(authorId, Sort.by(Sort.Direction.DESC, "datePublished"));
 	}
@@ -169,9 +163,9 @@ public class BulletinPostService {
     		post.setAuthor(existingPost.getAuthor());
     		
     		validatePost(post);
+
+    		post.saveDateEdited();
     		
-    		System.out.println("POST AT SERVICE LAYER:" + post);
-    		post.saveDatePublished();
     		bulletinRepository.save(post);
     		
 		} else {

@@ -3,8 +3,6 @@ package com.fdmgroup.gwbPlatformBulletin.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -37,10 +35,8 @@ public class Member {
 //	@Enumerated(EnumType.STRING)
 //    private Honorific honorific;
 	
-//	@NotBlank(message = "First name cannot be blank")
 	private String firstName;
 	
-//	@NotBlank(message = "Last name cannot be blank")
 	private String lastName;
 	
 	@NotBlank(message = "Email cannot be blank")

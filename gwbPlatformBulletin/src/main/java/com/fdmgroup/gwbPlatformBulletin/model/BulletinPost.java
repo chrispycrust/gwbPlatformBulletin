@@ -64,6 +64,9 @@ public class BulletinPost {
 	@JsonFormat(pattern = "EEEE, MMMM dd, yyyy hh:mm:ss a")
 	private LocalDateTime datePublished;
 	
+	@JsonFormat(pattern = "EEEE, MMMM dd, yyyy hh:mm:ss a")
+	private LocalDateTime dateEdited;
+	
 	public BulletinPost() {
 	}
 	
@@ -135,13 +138,25 @@ public class BulletinPost {
 	public void setDatePublished(LocalDateTime datePublished) {
 		this.datePublished = datePublished;
 	}
-	
+
+	public LocalDateTime getDateEdited() {
+		return dateEdited;
+	}
+
+	public void setDateEdited(LocalDateTime dateEdited) {
+		this.dateEdited = dateEdited;
+	}
+
 	/**
 	 * Set the publish date right before saving it for the first time
 	 */
 	@PrePersist
     public void saveDatePublished() {
         setDatePublished(LocalDateTime.now());
+    }
+	
+    public void saveDateEdited() {
+        setDateEdited(LocalDateTime.now());
     }
 
 	@Override

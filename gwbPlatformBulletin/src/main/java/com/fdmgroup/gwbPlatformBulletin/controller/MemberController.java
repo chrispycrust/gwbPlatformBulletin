@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -29,10 +30,29 @@ public class MemberController {
     private MemberService memberService;
 	
 	@PostMapping("/register")
-    public void registerMember(@Valid @RequestBody Member member) throws ConflictException {
-		System.out.println(member);
-        memberService.registerMember(member);
+    public void registerMember(@Valid @RequestBody Member member) {
+	
+		try {
+	        memberService.registerMember(member);
+	    } catch (ConflictException ex) {
+	        throw new ResponseStatusException(HttpStatus.CONFLICT, "Member already exists in database");
+	    } 
+       
     }
+	
+//	@PostMapping("/register")
+//	public void registerMember(@RequestHeader("Authorization") String bearer, @RequestParam String question, @RequestParam String disclosure,
+//			@RequestParam boolean canRecastVote, @RequestParam String[] options) {
+//		
+//			System.out.println(bearer);
+//			String token = bearer.substring(7);
+//			
+//			memberService.registerMember();
+//			
+//			String username = tokenService.getSubject(token).orElseThrow(() -> new NotFoundException ("Subject of jwt not found"));
+//			User user = userService. findByUsername(username).orElseThrow(() -> new NotFoundException ("User with username '%s' not found".formatted(username)))
+//	
+//	}
     
 	@GetMapping ("/me")
 	public Member getCurrentlyLoggedInUser(Authentication auth) {

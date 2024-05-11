@@ -148,7 +148,7 @@ public class BulletinPostService {
 	public void updatePost(Integer id, @Valid BulletinPost post, Authentication authentication) throws NonexistentPostException, AuthorizationException {
     	    	
     	if (id != post.getId()) {
-    		throw new AuthorizationException("id does not match post id");
+    		throw new AuthorizationException("Post does not match intended post id");
     	}
     
     	if (bulletinRepository.existsById(id)) {
@@ -160,10 +160,12 @@ public class BulletinPostService {
     		    throw new AuthorizationException("You do not have permission to edit this post");
     		}
     		
+    		
     		post.setAuthor(existingPost.getAuthor());
     		
     		validatePost(post);
-
+    		
+    		post.setDatePublished(existingPost.getDatePublished());
     		post.saveDateEdited();
     		
     		bulletinRepository.save(post);

@@ -30,10 +30,12 @@ public class MemberController {
     private MemberService memberService;
 	
 	@PostMapping("/register")
-    public void registerMember(@Valid @RequestBody Member member) {
+    public String registerMember(@Valid @RequestBody Member member) {
 	
 		try {
-	        memberService.registerMember(member);
+	        String token = memberService.registerMember(member);
+	        return token;
+	        
 	    } catch (ConflictException ex) {
 	        throw new ResponseStatusException(HttpStatus.CONFLICT, "Member already exists in database");
 	    } 

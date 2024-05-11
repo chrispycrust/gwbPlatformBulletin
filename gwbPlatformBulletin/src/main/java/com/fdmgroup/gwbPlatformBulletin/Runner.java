@@ -218,9 +218,9 @@ public class Runner implements ApplicationRunner {
 				+ "\n"
 				+ "I propose we form a clandestine collective—\"League of Extraordinary Gardeners.\" This will be no ordinary gathering to debate the merits of sun vs. shade. No, we shall use our discussions as a cover to challenge the entrenched norms hidden behind each perfect arrangement. Our tools? Nothing more dangerous than trowels and wit.\n"
 				+ "\n"
-				+ "If you've ever smirked at the idea of using a discussion on fertilizer to subtly uproot societal conventions, or if you’ve imagined strategizing over plant formations as if plotting a quiet coup against the age-old structures of our realm, then you, my friend, belong with us.\n"
+				+ "If you've ever smirked at the idea of using a discussion on fertiliser to subtly uproot societal conventions, or if you’ve imagined strategising over plant formations as if plotting a quiet coup against the age-old structures of our realm, then you, my friend, belong with us.\n"
 				+ "\n"
-				+ "Send a discreet sign of your interest—perhaps suggest an unusual plant for our next innocent gathering. Let us cultivate not just flowers, but the seeds of change, sowing ideas as we prune the outdated.\n"
+				+ "Send a discreet sign of your interest—perhaps suggest an unusual plant for our next gathering. Let us cultivate not just flowers, but the seeds of change, sowing ideas as we prune the outdated.\n"
 				+ "\n"
 				+ "Yours in mischief and (garden) variety,"
 				));

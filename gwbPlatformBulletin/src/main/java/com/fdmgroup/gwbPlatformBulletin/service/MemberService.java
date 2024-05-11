@@ -1,9 +1,13 @@
 package com.fdmgroup.gwbPlatformBulletin.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +15,7 @@ import com.fdmgroup.gwbPlatformBulletin.exceptions.ConflictException;
 import com.fdmgroup.gwbPlatformBulletin.exceptions.ValidationException;
 
 import com.fdmgroup.gwbPlatformBulletin.model.Member;
+import com.fdmgroup.gwbPlatformBulletin.security.TokenService;
 import com.fdmgroup.gwbPlatformBulletin.dal.MemberRepository;
 
 @Service
@@ -18,15 +23,17 @@ public class MemberService {
 
    private MemberRepository memberRepository;
 	private PasswordEncoder encoder;
+	private TokenService tokenService;
 	
 	@Autowired
-	public MemberService(MemberRepository memberRepository, PasswordEncoder encoder) {
+	public MemberService(MemberRepository memberRepository, PasswordEncoder encoder, TokenService tokenService) {
 		super();
 		this.memberRepository = memberRepository;
 		this.encoder = encoder;
+		this.tokenService = tokenService;
 	}
 
-	public void registerMember(Member member) throws ConflictException, ValidationException {
+	public String registerMember(Member member) throws ConflictException, ValidationException {
 		
 		validateMember(member);
 		
@@ -43,6 +50,17 @@ public class MemberService {
 			memberRepository.save(member);
 			
 			System.out.println("NEW USER ADDED:" + member.getFullName());
+			
+			// Create Authentication object
+	        Authentication auth = new UsernamePasswordAuthenticationToken(
+	        		
+	                member.getEmail(), 
+	                member.getPassword(),
+	                Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+	        
+	        // Assuming you have a method to generate token
+	        return tokenService.generateToken(auth);
+	        		
 			
 		}	
     }
@@ -102,7 +120,6 @@ public class MemberService {
     }
 
 	public void saveAll(List<Member> members) { // for committing dummy data
-		// iterate through member
 		for (Member member : members ) {
 			registerMember(member);
 		}

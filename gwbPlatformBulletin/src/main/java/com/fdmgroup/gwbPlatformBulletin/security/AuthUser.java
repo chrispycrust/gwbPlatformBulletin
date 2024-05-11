@@ -28,9 +28,14 @@ public class AuthUser implements org.springframework.security.core.userdetails.U
 		return this.member.getPassword();
 	}
 
+//	@Override
+//	public String getUsername() {
+//		return this.member.getEmail();		// change to name getter
+//	}
+	
 	@Override
 	public String getUsername() {
-		return this.member.getEmail();		// change to name getter
+		return String.valueOf(this.member.getId());
 	}
 
 	@Override

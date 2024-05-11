@@ -41,9 +41,17 @@ public class MemberController {
 	    } 
        
     }
+//	
+//	@GetMapping ("/me")
+//	public Member getCurrentlyLoggedInUser(Authentication auth) {
+//
+//		return memberService.findMemberByEmail(auth.getName())
+//				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found"));
+//	}
 	
 	@GetMapping ("/me")
 	public Member getCurrentlyLoggedInUser(Authentication auth) {
+
 		return memberService.findMemberByEmail(auth.getName())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found"));
 	}
@@ -76,19 +84,35 @@ public class MemberController {
     public List<Member> getMemberBySearch(@PathVariable(value = "searchTerm") String searchTerm) {
         return memberService.findBySearch(searchTerm);
     }
-
+    
     @PutMapping("/{id}")
     public void updateMember(@PathVariable Integer id, @Valid @RequestBody Member member) {
-    	
-    	System.out.println("Member object details:" + member);
-    	
     	member.setId(id); // matches the id specified at the endpoint, ensures we're updating the right entity
     	memberService.updateMember(member);
     }
-        
+    
+//    @PutMapping("/{id}/updateEmail")
+//    public ResponseEntity<String> updateEmail(@PathVariable Integer id, @RequestParam String newEmail) {
+//        Member existingMember = memberService.findMemberById(id)
+//            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found with id: " + id));
+//
+//        if (!newEmail.equals(existingMember.getEmail())) {
+//            memberService.updateEmail(id, newEmail);
+//            return ResponseEntity.ok("Email update requested. Please verify the new email to complete the update.");
+//        } else {
+//            return ResponseEntity.badRequest().body("New email is the same as the old email.");
+//        }
+//    }
+
+
     @DeleteMapping("/{id}")
     public void deleteMemberById(@PathVariable(value = "id") Integer memberId) {
     	memberService.deleteById(memberId);
+    }
+    
+    @GetMapping("/whoami")
+    public String whoAmI(Authentication authentication) {
+        return "Current user ID: " + authentication.getName();
     }
 
 }

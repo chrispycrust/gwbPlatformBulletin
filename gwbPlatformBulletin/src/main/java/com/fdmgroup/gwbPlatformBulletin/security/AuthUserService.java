@@ -20,10 +20,23 @@ public class AuthUserService implements org.springframework.security.core.userde
 		this.memberRepository = memberRepository;
 	}
 
+//	@Override
+//	public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//		// CHANGE TO findByName !!!!!!!!!!!
+//		Member member = this.memberRepository.findByEmail(username).orElseThrow(
+//				()-> new UsernameNotFoundException(username));
+//		return new AuthUser(member);
+//	}
+//	
 	@Override
 	public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// CHANGE TO findByName !!!!!!!!!!!
-		Member member = this.memberRepository.findByEmail(username).orElseThrow(
+		Integer userId;
+        try {
+            userId = Integer.parseInt(username); // Parse the username to an integer ID
+        } catch (NumberFormatException e) {
+            throw new UsernameNotFoundException("Invalid user ID: " + username);
+        }
+		Member member = this.memberRepository.findById(userId).orElseThrow(
 				()-> new UsernameNotFoundException(username));
 		return new AuthUser(member);
 	}

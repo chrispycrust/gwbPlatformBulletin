@@ -5,7 +5,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fdmgroup.gwbPlatformBulletin.exceptions.ConflictException;
 import com.fdmgroup.gwbPlatformBulletin.model.Member;
+import com.fdmgroup.gwbPlatformBulletin.security.AuthUser;
 import com.fdmgroup.gwbPlatformBulletin.service.MemberService;
 
 import jakarta.validation.Valid;
@@ -49,12 +53,34 @@ public class MemberController {
 //				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found"));
 //	}
 	
-	@GetMapping ("/me")
-	public Member getCurrentlyLoggedInUser(Authentication auth) {
+//	@GetMapping("/me")
+//	public Member getCurrentlyLoggedInUser(Authentication authentication) {
+//		
+//		
+//	    AuthUser currentUser = (AuthUser) authentication.getPrincipal();
+//	    Integer userId = currentUser.getUserId();  // Get user ID from AuthUser
+//
+//	    return memberService.getMemberById(userId)
+//	        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found"));
+//	}
+	
+	@GetMapping("/me")
+    public ResponseEntity<String> getCurrentlyLoggedInUser(@AuthenticationPrincipal Jwt jwt) {
+        if (jwt == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
 
-		return memberService.findMemberByEmail(auth.getName())
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found"));
-	}
+        // Extract standard claims
+        String userId = jwt.getSubject(); // 'sub' claim, typically the user ID
+        String email = jwt.getClaimAsString("email"); // Custom claim, ensure your JWTs include it if needed
+
+        // Optionally, extract custom claims
+        String role = jwt.getClaimAsString("role");
+        
+        // Use extracted information
+        return ResponseEntity.ok("User ID: " + userId + ", Email: " + email + ", Role: " + role);
+    }
+
 	
     @GetMapping
     public List<Member> getAllMembers() {

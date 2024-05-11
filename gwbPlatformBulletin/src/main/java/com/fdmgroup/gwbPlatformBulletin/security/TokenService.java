@@ -22,7 +22,7 @@ public class TokenService {
 
     private final JwtEncoder encoder;
     private final MemberRepository memberRepository;
-    JwtDecoder decoder;
+    private final JwtDecoder decoder;
     
     public TokenService(JwtEncoder encoder, JwtDecoder decoder, MemberRepository memberRepository) {
         this.encoder = encoder;
@@ -32,16 +32,28 @@ public class TokenService {
 
     public String generateToken(Authentication authentication) {
         Instant now = Instant.now();
+        
+        String userId;
+        if (authentication.getPrincipal() instanceof AuthUser) {
+            AuthUser authUser = (AuthUser) authentication.getPrincipal();
+            userId = String.valueOf(authUser.getUserId());
+        } else {
+            throw new IllegalStateException("Expected AuthUser as the principal");
+        }
+
         String scope = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(" "));
+        
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(now)
                 .expiresAt(now.plus(1, ChronoUnit.HOURS))
-                .subject(authentication.getName()) // maybee needs changing
+                .subject(userId)  // Set the user ID as the subject
+                .claim("email", authentication.getName())
                 .claim("scope", scope)
                 .build();
+        
         return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
     

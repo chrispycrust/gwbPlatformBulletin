@@ -44,6 +44,12 @@ public class SecurityConfig {
 		this.userDetailsService = userDetailsService;
 		this.rsaKeys = rsaKeys;
 	}
+	
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+	    auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+	}
+
 
 	@Bean
 	JwtDecoder jwtDecoder() {
@@ -78,7 +84,7 @@ public class SecurityConfig {
         			.anyRequest().authenticated()	// Default is to log in (authenticated). Can change to permitAll to let anyone have access
         	)
 //        	.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)  //The old syntax
-        	.oauth2ResourceServer(server->server.jwt(Customizer.withDefaults()))
+        	.oauth2ResourceServer(oauth2->oauth2.jwt(jwt -> jwt.decoder(jwtDecoder()))) //custom decoder for getting user id
         	.sessionManagement(session -> session
         			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         	)

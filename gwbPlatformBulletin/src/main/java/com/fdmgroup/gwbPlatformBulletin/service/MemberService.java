@@ -17,6 +17,7 @@ import com.fdmgroup.gwbPlatformBulletin.exceptions.ValidationException;
 import com.fdmgroup.gwbPlatformBulletin.model.Member;
 import com.fdmgroup.gwbPlatformBulletin.security.TokenService;
 import com.fdmgroup.gwbPlatformBulletin.dal.MemberRepository;
+import org.springframework.context.annotation.Lazy;
 
 @Service
 public class MemberService {
@@ -26,7 +27,7 @@ public class MemberService {
 	private TokenService tokenService;
 	
 	@Autowired
-	public MemberService(MemberRepository memberRepository, PasswordEncoder encoder, TokenService tokenService) {
+	public MemberService(MemberRepository memberRepository, PasswordEncoder encoder, @Lazy TokenService tokenService) {
 		super();
 		this.memberRepository = memberRepository;
 		this.encoder = encoder;
@@ -55,7 +56,8 @@ public class MemberService {
 	        		
 	                member.getEmail(), 
 	                member.getPassword(),
-	                Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+	                Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"))
+	        );
 	        
 	        return tokenService.generateToken(auth);
 

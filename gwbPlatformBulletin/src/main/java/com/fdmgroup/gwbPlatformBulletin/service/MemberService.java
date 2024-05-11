@@ -51,17 +51,14 @@ public class MemberService {
 			
 			System.out.println("NEW USER ADDED:" + member.getFullName());
 			
-			// Create Authentication object
 	        Authentication auth = new UsernamePasswordAuthenticationToken(
 	        		
 	                member.getEmail(), 
 	                member.getPassword(),
 	                Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
 	        
-	        // Assuming you have a method to generate token
 	        return tokenService.generateToken(auth);
-	        		
-			
+
 		}	
     }
 	

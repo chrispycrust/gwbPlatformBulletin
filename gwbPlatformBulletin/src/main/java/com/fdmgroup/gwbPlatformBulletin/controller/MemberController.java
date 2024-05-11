@@ -1,6 +1,7 @@
 package com.fdmgroup.gwbPlatformBulletin.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -42,20 +42,6 @@ public class MemberController {
        
     }
 	
-//	@PostMapping("/register")
-//	public void registerMember(@RequestHeader("Authorization") String bearer, @RequestParam String question, @RequestParam String disclosure,
-//			@RequestParam boolean canRecastVote, @RequestParam String[] options) {
-//		
-//			System.out.println(bearer);
-//			String token = bearer.substring(7);
-//			
-//			memberService.registerMember();
-//			
-//			String username = tokenService.getSubject(token).orElseThrow(() -> new NotFoundException ("Subject of jwt not found"));
-//			User user = userService. findByUsername(username).orElseThrow(() -> new NotFoundException ("User with username '%s' not found".formatted(username)))
-//	
-//	}
-    
 	@GetMapping ("/me")
 	public Member getCurrentlyLoggedInUser(Authentication auth) {
 		return memberService.findMemberByEmail(auth.getName())
@@ -93,7 +79,9 @@ public class MemberController {
 
     @PutMapping("/{id}")
     public void updateMember(@PathVariable Integer id, @Valid @RequestBody Member member) {
+    	
     	System.out.println("Member object details:" + member);
+    	
     	member.setId(id); // matches the id specified at the endpoint, ensures we're updating the right entity
     	memberService.updateMember(member);
     }

@@ -164,8 +164,5 @@ public class BulletinPost {
 		return "BulletinPost [id=" + id + ", author=" + author + ", title=" + title + ", content=" + content
 				+ ", datePublished=" + datePublished + "]";
 	}
-	
-	
-
 
 }

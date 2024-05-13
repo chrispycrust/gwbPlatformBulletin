@@ -66,7 +66,7 @@ public class Runner implements ApplicationRunner {
 		members.add(new Member("Lady", "", "Whistledown", "secretScribe@tonTimes.com", "InkAndIntrigue1799", new ArrayList<>()));
 		members.add(new Member("Dowager Viscountess", "Violet", "Bridgerton", "matriarchMatch@bridgerton.biz", "FamilyFirst1803", new ArrayList<>()));
 		members.add(new Member("Duchess", "Daphne", "Basset", "duchessD@bridgerton.biz", "TrueLove1813", new ArrayList<>()));
-		members.add(new Member("The Honourable", "Eloise", "Bridgerton", "rebelReader@literaryladies.com", "BooksBeforeBeaux1805", new ArrayList<>()));
+		members.add(new Member("The Honourable", "Eloise", "Bridgerton", "BooksBeforeBeaux@bridgerton.biz", "123", new ArrayList<>()));
 		members.add(new Member("Ms", "Mary", "Sharma", "mysticMary@sharmaFamily.com", "FamilyFortress1812", new ArrayList<>()));
 		members.add(new Member("Viscountess", "Kate", "Bridgerton", "steeledKate@sharmaFamily.com", "IronWill1814", new ArrayList<>()));
 		members.add(new Member("Miss", "Edwina", "Sharma", "eruditeEdwina@sharmaFamily.com", "BookishBrilliance1812", new ArrayList<>()));
@@ -134,36 +134,6 @@ public class Runner implements ApplicationRunner {
 				+ "Yours in curiosity,"
 				+ "Lady Whistledown"
 				));
-
-		bulletinBoard.add(new BulletinPost(members.get(7), 
-				
-				"The Subtle Art of Flower Arranging", 
-				
-				"Dear Esteemed Members,\n"
-				+ "\n"
-				+ "Today, I find myself contemplating the seemingly simple act of arranging flowers—a task that, upon closer inspection, reveals layers of complexity akin to the very nature of our own journeys toward personal growth and enlightenment.\n"
-				+ "\n"
-				+ "Consider, if you will, the delicate process of selecting each bloom. Not unlike our own choices in education and associations, each flower adds a unique value to the composition, suggesting that diversity in knowledge and company enhances the beauty and effectiveness of our collective endeavors. How crucial it is, then, to choose with care and purpose, ensuring a well-rounded and vibrant bouquet—much like a well-rounded character.\n"
-				+ "\n"
-				+ "Furthermore, the structure of our arrangements can mirror the organization of our lives. A strong foundation allows for the most exquisite and ambitious designs to take form without the fear of collapse. In this metaphor, one might see the importance of a solid educational grounding, supporting the flourishing of ambitious personal and professional goals.\n"
-				+ "\n"
-				+ "Let us discuss, then, how the principles of art and nature might guide our decisions and aspirations. Have you found other everyday activities that resonate with deeper truths about our paths and pursuits? I look forward to your reflections and insights, as we continue to arrange our lives with the same care and strategic thought as our most cherished bouquets.\n"
-				+ "\n"
-				+ "Yours in thoughtful contemplation,"
-				));
-		
-		bulletinBoard.add(new BulletinPost(members.get(16), 
-				
-				"Unveiling the Latest in High Fashion", 
-				
-				"Dear Esteemed Patrons and Fashion Aficionados,\n"
-				+ "\n"
-				+ "I am thrilled to announce the launch of my latest collection, \"Regency Reimagined,\" inspired by the elegance of the past and designed for the modern woman. Each piece blends timeless grace with contemporary boldness, ensuring that every wearer feels both classic and on the cutting edge.\n"
-				+ "\n"
-				+ "For a personal viewing and bespoke fitting, I invite you to visit my atelier. Book your appointment through this platform and be the first to don the trends of tomorrow, today. Indulge in the luxury of custom couture that speaks to both your style and stature.\n"
-				+ "\n"
-				+ "Embrace your unique elegance,"
-				));
 				
 		bulletinBoard.add(new BulletinPost(members.get(20), 
 				
@@ -177,21 +147,22 @@ public class Runner implements ApplicationRunner {
 				+ "Wilson, Housekeeper for the Esteemed Bridgertons"
 				));
 		
-		bulletinBoard.add(new BulletinPost(members.get(5), 
-				
-				"A Gentle Invitation to New Beginnings\n",
-				
-				"Dear Esteemed Friends,"
-				+ "As seasons change and gardens begin to bloom anew, I find myself reflecting on the natural cycles of renewal and rebirth. Just as a garden left dormant through the winter revives with the warmth of spring, so too can our hearts find new life after seasons of solitude and reflection.\n"
-				+ "\n"
-				+ "To those who have walked a similar path of loss and remembrance, perhaps you too have felt the first stirrings of renewal within your spirit—a desire to once again embrace the joys that companionship can bring. It is with this thought in mind that I propose a discreet gathering, one that we might whimsically call the “Society of Reviving Hearts.”\n"
-				+ "\n"
-				+ "This would be a place for us to share, in hushed tones and with the utmost respect for our pasts, how we might cultivate our emotional landscapes to once again flourish. Whether through quiet conversations, shared readings, or simply enjoying the presence of understanding company, let us explore together how the heart, much like our beloved gardens, might bloom once more with the gentle care of time and attention.\n"
-				+ "\n"
-				+ "If you feel a whisper of readiness to explore the possibility of spring after a long winter, do reach out. Let us walk together with gentle steps towards perhaps, a brighter season.\n"
-				+ "\n"
-				+ "Yours in hope and healing,\n"
-				));
+//		bulletinBoard.add(new BulletinPost(members.get(5), 
+//				
+//				"A Gentle Invitation to New Beginnings\n",
+//				
+//				"Dear Esteemed Friends,"
+//				+ "\n"
+//				+ "As seasons change and gardens begin to bloom anew, I find myself reflecting on the natural cycles of renewal and rebirth. Just as a garden left dormant through the winter revives with the warmth of spring, so too can our hearts find new life after seasons of solitude and reflection.\n"
+//				+ "\n"
+//				+ "To those who have walked a similar path of loss and remembrance, perhaps you too have felt the first stirrings of renewal within your spirit—a desire to once again embrace the joys that companionship can bring. It is with this thought in mind that I propose a discreet gathering, one that we might whimsically call the “Society of Reviving Hearts.”\n"
+//				+ "\n"
+//				+ "This would be a place for us to share, in hushed tones and with the utmost respect for our pasts, how we might cultivate our emotional landscapes to once again flourish. Whether through quiet conversations, shared readings, or simply enjoying the presence of understanding company, let us explore together how the heart, much like our beloved gardens, might bloom once more with the gentle care of time and attention.\n"
+//				+ "\n"
+//				+ "If you feel a whisper of readiness to explore the possibility of spring after a long winter, do reach out. Let us walk together with gentle steps towards perhaps, a brighter season.\n"
+//				+ "\n"
+//				+ "Yours in hope and healing,\n"
+//				));
 		
 		bulletinBoard.add(new BulletinPost(members.get(6), 
 				
@@ -210,19 +181,17 @@ public class Runner implements ApplicationRunner {
 		
 		bulletinBoard.add(new BulletinPost(members.get(7), 
 				
-				"A Call to Arms: Petals and Stems", 
+				"An Invitation to Cultivate More Than Just Flowers", 
 				
-				"Dear Conspirators of the Garden,\n"
+				"Dear Esteemed Companions,\n"
 				+ "\n"
-				+ "Are you, like me, growing weary of the typical chatter about roses and daisies? Do you find that discussing petals and stems could be a revolutionary act, if only we dared to dig a little deeper? Let's turn our seemingly innocent hobby into a battlefield for the mind.\n"
+				+ "Are you, like myself, ever curious about the parallels between our delicate botanical hobbies and the broader tapestries of life? If so, allow me to extend an invitation to what we might affectionately call the “Society of Gentle Gardeners.”\n"
 				+ "\n"
-				+ "I propose we form a clandestine collective—\"League of Extraordinary Gardeners.\" This will be no ordinary gathering to debate the merits of sun vs. shade. No, we shall use our discussions as a cover to challenge the entrenched norms hidden behind each perfect arrangement. Our tools? Nothing more dangerous than trowels and wit.\n"
+				+ "This society, under the guise of discussing the finer points of horticulture, will serve as a forum for those among us who appreciate the deeper meanings found in the gentle tending of our gardens. Our conversations might ostensibly revolve around floral arrangements and seasonal planting, yet I trust they will naturally blossom into discussions that touch upon the very essence of our lives and the structures that define them.\n"
 				+ "\n"
-				+ "If you've ever smirked at the idea of using a discussion on fertiliser to subtly uproot societal conventions, or if you’ve imagined strategising over plant formations as if plotting a quiet coup against the age-old structures of our realm, then you, my friend, belong with us.\n"
+				+ "If you find yourself intrigued by the notion of intertwining nature’s lessons with life’s larger questions, I encourage you to discreetly express your interest. Together, we shall share in the cultivation of our gardens and perhaps, quite inadvertently, nurture the seeds of broader contemplation and understanding.\n"
 				+ "\n"
-				+ "Send a discreet sign of your interest—perhaps suggest an unusual plant for our next gathering. Let us cultivate not just flowers, but the seeds of change, sowing ideas as we prune the outdated.\n"
-				+ "\n"
-				+ "Yours in mischief and (garden) variety,"
+				+ "Yours in earnest curiosity and reflection,"
 				));
 		
 		bulletinBoard.add(new BulletinPost(members.get(16), 
@@ -237,35 +206,7 @@ public class Runner implements ApplicationRunner {
 				+ "\n"
 				+ "Discover the artistry behind the fashion,"
 				));
-		
-		bulletinBoard.add(new BulletinPost(members.get(21), 
-				
-				"Delighted to Share My Recent Accomplishments", 
-				
-				"Dear Friends and Esteemed Acquaintances,\n"
-				+ "\n"
-				+ "I am thrilled to share with you some exciting news about my recent endeavors, which have been both challenging and incredibly rewarding. I had the distinct pleasure of organizing the annual Spring Charity Gala last month, an event that was not only a resounding success but also raised significant funds for a cause close to our hearts.\n"
-				+ "\n"
-				+ "The gala was attended by notable figures from various sectors, and I was honored to receive commendations for my role in ensuring the evening was both enchanting and effective. It was a wonderful opportunity to blend social engagement with meaningful impact, and I am eager to explore further avenues where I can contribute my organizational skills and passion for the finer things in life.\n"
-				+ "\n"
-				+ "Please feel free to reach out if you wish to discuss potential collaborations or if you're curious about the behind-the-scenes magic that goes into organizing such splendid events!\n"
-				+ "\n"
-				+ "Yours with refined anticipation,"
-				));
-		
-		bulletinBoard.add(new BulletinPost(members.get(16), 
-				
-				"Exclusive Offer for First-Time Clients", 
-				
-				"Greetings to All Modern Connoisseurs of Style,\n"
-				+ "\n"
-				+ "For those yet to experience the magic of bespoke tailoring, I extend a warm invitation to explore your fashion fantasies with an exclusive offer: 20% off your first custom creation. Let us embark on a journey of transformation together, where your desires are woven into every thread of your garment.\n"
-				+ "\n"
-				+ "Seize this opportunity to enhance your wardrobe with attire that is crafted just for you. Schedule your consultation today, and step into a world where fashion meets personal expression.\n"
-				+ "\n"
-				+ "Your couture adventure awaits,"
-				));
-		
+
 		bulletinService.saveAll(bulletinBoard);
 		
 	}

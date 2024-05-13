@@ -176,5 +176,12 @@ public class BulletinPostService {
 		}
 		
 	}
+
+//	public List<BulletinPost> findByTitleContainingIgnoreCaseOrContentContainingIgnoreCase(String searchTerm) {
+//		String searchTermLowercase = "%" + searchTerm.toLowerCase() + "%";
+//		
+//    	return bulletinRepository.findByTitleContainingIgnoreCaseOrContentContainingIgnoreCase(searchTermLowercase);
+//
+//	}
 	
 }

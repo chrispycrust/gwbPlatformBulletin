@@ -99,20 +99,6 @@ public class BulletinPostController {
 //        
 //    }
     
-//    @PutMapping("/{id}")
-//    public void updatePost(@PathVariable Integer id, 
-//    		String authorEmail, 
-//    		String updatedTitle, 
-//    		String updatedContent, Authentication authentication) throws NonexistentPostException, AuthorizationException {
-//    	
-//    	System.out.println("postid: " + id);
-//    	System.out.println("authorEmail: " + authorEmail);
-//    	System.out.println("updatedTitle: " + updatedTitle);
-//    	System.out.println("updatedContent: " + updatedContent);
-//
-//    	bulletinPostService.updatePost(id, authorEmail, updatedTitle, updatedContent, authentication);
-//    }
-    
     @PutMapping("/{id}")
     public void updatePost(@PathVariable Integer id, @Valid @RequestBody BulletinPost updatedPost, Authentication authentication) 
     		throws NonexistentPostException, AuthorizationException {
